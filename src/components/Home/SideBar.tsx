@@ -3,13 +3,12 @@ import logo from "../../../src/assets/Logo.png";
 import cornerBall from "@/assets/football.svg";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { NavLink } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 const SideBar = () => {
   return (
     <aside
       dir="rtl"
-      className="SideBar relative overflow-hidden w-[288px] h-[calc(100vh-48px)] bg-white border border-gray-200 rounded-[48px] py-12 px-6 flex flex-col items-stretch gap-10 shadow-[0_4px_10px_0_rgba(46,173,0,0.25)]"
+      className="SideBar flex-shrink-0 relative overflow-hidden w-[288px] h-[calc(100vh-48px)] bg-white border border-gray-200 rounded-[48px] py-12 px-6 flex flex-col items-stretch gap-10 shadow-[0_4px_10px_0_rgba(46,173,0,0.25)]"
     >
       <div className="flex items-center justify-center">
         <LazyLoadImage src={logo} alt="logo" className="h-10 w-auto" />

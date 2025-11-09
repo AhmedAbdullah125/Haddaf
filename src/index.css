@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */
@@ -110,6 +109,34 @@ All colors MUST be HSL.
 }
 .rounded-3xl{
   border-radius: 24px;
+}
+.max-w-\[100vw\] {
+    max-width: 100vw;
+}
+.max-w-\[calc\(100vw-370px\)\] {
+    max-width: calc(100vw - 370px);
+}
+.text-777 {
+  color: #777;
+}
+.text-nowrap{
+  white-space: nowrap;
+  text-wrap: nowrap;
+}
+.mb-9{
+  margin-bottom: 36px;
+}
+.mt-6{
+  margin-top: 24px;
+}
+.bg-E4FFEB{
+  background-color: #E4FFEB;
+}
+.pe-3{
+  padding-inline-end: 12px;
+}
+.w-12{
+  width: 48px;
 }
 @layer base {
   * {
