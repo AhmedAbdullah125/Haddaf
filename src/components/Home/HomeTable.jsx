@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import greenGound from "../../assets/greenGound.svg";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import Pagination from "../Global/Pagination";
+const HomeTable = () => {
 
-const data = Array.from({ length: 5 }).map((_, i) => ({
+const rows = Array.from({ length: 5 }).map((_, i) => ({
   id: i + 1,
   stadium: "ملعب النخيل",
   players: "12/8",
@@ -13,7 +14,56 @@ const data = Array.from({ length: 5 }).map((_, i) => ({
   remaining: "16 دقيقة",
   slotCost: "30 ريال",
 }));
-
+const data = {
+  headers:[
+    {
+      name:"رقم",
+      key:"id",
+      id:1
+    },
+    {
+      name:"اسم الملعب",
+      key:"stadium",
+      id:2
+    },
+    {
+      name:"عدد اللاعبين",
+      key:"players",
+      id:3
+    },
+    {
+      name:"مدة المباراة",
+      key:"duration",
+      id:4
+    },
+    {
+      name:"موعد المباراة",
+      key:"date",
+      id:5
+    },
+    {
+      name:"الساعة",
+      key:"time",
+      id:6
+    },
+    {
+      name:"الوقت المتبقي لأقرب مباراة",
+      key:"remaining",
+      id:7
+    },
+    {
+      name:"التكلفة",
+      key:"slotCost",
+      id:8
+    },
+    {
+      name:"الإجراءات",
+      key:"actions",
+      id:9
+    },
+  ],
+  rows:rows
+}
 const IconTrash = ({ className = "w-5 h-5" }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className}><path d="M9 3h6v2h5v2H4V5h5V3Zm1 6h2v10h-2V9Zm4 0h2v10h-2V9ZM6 9h2v10H6V9Z"/></svg>
 );
@@ -25,7 +75,6 @@ const IconEye = ({ className = "w-5 h-5" }) => (
 );
 
 const [page, setPage] = useState(1);
-const HomeTable = () => {
   return (
     <div className="home-table mt-8" >
       {/* Container */}
@@ -40,22 +89,18 @@ const HomeTable = () => {
 
         {/* Table */}
         <div className="overflow-x-auto overflow-auto w-full max-w-[calc(100vw-370px)] border-black/10 border rounded-3xl">
-          <table className="min-w-full text-right overflow-auto">
-            <thead>
+          <table className="min-w-full text-right overflow-auto w-full">
+            <thead className="w-full">
               <tr className="text-gray-600">
-                <th className="px-6 py-4 font-semibold whitespace-nowrap text-lg">رقم</th>
-                <th className="px-6 py-4 font-semibold whitespace-nowrap text-lg">اسم الملعب</th>
-                <th className="px-6 py-4 font-semibold whitespace-nowrap text-lg">عدد اللاعبين</th>
-                <th className="px-6 py-4 font-semibold whitespace-nowrap text-lg">مدة المباراة</th>
-                <th className="px-6 py-4 font-semibold whitespace-nowrap text-lg">موعد المباراة</th>
-                <th className="px-6 py-4 font-semibold whitespace-nowrap text-lg">الساعة</th>
-                <th className="px-6 py-4 font-semibold whitespace-nowrap text-lg">الوقت المتبقي لأقرب مباراة</th>
-                <th className="px-6 py-4 font-semibold whitespace-nowrap text-lg">التكلفة</th>
-                <th className="px-6 py-4 font-semibold whitespace-nowrap text-lg">الإجراءات</th>
+                {
+                  data.headers.map((header) => (
+                    <th key={header.id} className="px-6 py-4 font-semibold whitespace-nowrap text-lg">{header.name}</th>
+                  ))
+                }
               </tr>
             </thead>
             <tbody>
-              {data.map((row, idx) => (
+              {data.rows.map((row, idx) => (
                 <tr key={row.id} className="border-t border-gray-100">
                   <td className="px-6 py-4 text-777 text-nowrap text-lg font-medium">{row.id}</td>
                   <td className="px-6 py-4 text-777 text-nowrap text-lg font-medium">{row.stadium}</td>

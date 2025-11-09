@@ -4,18 +4,11 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import Pagination from "../Global/Pagination";
 
 // Sample rows matching the visual: same values repeated
-const rows = Array.from({ length: 8 }).map((_, i) => ({
-  id: i + 1,
-  customer: "رامز",
-  phone: "+966 XX XXX XXXX",
-  matchDetails: "20/08/2026",
-  guest1: "خالد",
-  family: "خالد",
-}));
 
 
-const MatchTable = () => {
+const MatchTable = ({data}) => {
   const [page, setPage] = useState(1);
+  
   return (
     <div className="mt-8" dir="rtl">
       {/* Header */}
@@ -29,19 +22,18 @@ const MatchTable = () => {
       {/* Match HomeTable styles */}
       <div className="bg-white shadow-[0_4px_12px_rgba(46,173,0,0.08)] overflow-hidden">
         <div className="overflow-x-auto overflow-auto w-full max-w-[calc(100vw-370px)] border-black/10 border rounded-3xl">
-          <table className="min-w-full text-right overflow-auto">
-            <thead>
+          <table className="min-w-full text-right overflow-auto w-full">
+            <thead className="w-full">
               <tr className="text-gray-600">
-                <th className="px-6 py-4 font-semibold whitespace-nowrap">رقم</th>
-                <th className="px-6 py-4 font-semibold whitespace-nowrap">اسم العميل</th>
-                <th className="px-6 py-4 font-semibold whitespace-nowrap">رقم الجوال</th>
-                <th className="px-6 py-4 font-semibold whitespace-nowrap">تفاصيل المباراه</th>
-                <th className="px-6 py-4 font-semibold whitespace-nowrap">اسم الضيف الاول</th>
-                <th className="px-6 py-4 font-semibold whitespace-nowrap">اسم العائلة</th>
+                {
+                  data.headers.map((header) => (
+                    <th key={header.id} className="px-6 py-4 font-semibold whitespace-nowrap">{header.name}</th>
+                  ))
+                }
               </tr>
             </thead>
             <tbody>
-              {rows.slice((page - 1) * 10, page * 10).map((r) => (
+              {data.rows.slice((page - 1) * 10, page * 10).map((r) => (
                 <tr key={r.id} className="border-t border-gray-200">
                   <td className="px-6 py-4 text-gray-800">{r.id}</td>
                   <td className="px-6 py-4 text-gray-800">{r.customer}</td>

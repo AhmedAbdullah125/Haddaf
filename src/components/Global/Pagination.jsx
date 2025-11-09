@@ -35,7 +35,7 @@ const Pagination = ({ total = 4, current = 1, onChange }) => {
                 className={
                   p === current
                     ? "bg-primary text-white rounded-full w-12 h-9 flex items-center justify-center font-extrabold"
-                    : "text-gray-600 font-extrabold text-lg w-12 h-9"
+                    : "text-777 font-extrabold text-lg w-12 h-9"
                 }
               >
                 {p}

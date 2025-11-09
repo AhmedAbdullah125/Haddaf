@@ -11,6 +11,9 @@ import ForgetPassword from "../src/pages/ForgetPassword";
 import Verify from "../src/pages/Verify";
 import ResetPassword from "../src/pages/ResetPassword";
 import PlayGrounds from "../src/pages/PlayGrounds";
+import GroundMatches from "../src/pages/GroundMatches";
+import AddMatch from "../src/pages/AddMatch";
+import AddPlayGround from "../src/pages/AddPlayGround";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +27,11 @@ const App = () => (
           <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/playgrounds" element={<PlayGrounds />} />
+          <Route path="/playground/edit/:id" element={<AddPlayGround />} />
+          <Route path="/match/edit/:id" element={<AddMatch />} />
+          <Route path="/match/add" element={<AddMatch />} />
+          <Route path="/playground/matches/:id" element={<GroundMatches />} />
+          <Route path="/playground/add" element={<AddPlayGround />} />
           <Route path="/login" element={<Login />} />
           <Route path="/verify" element={<Verify />} />
           <Route path="/forget-password" element={<ForgetPassword />} />

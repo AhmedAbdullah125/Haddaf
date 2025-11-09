@@ -6,17 +6,61 @@ import HomeTable from "../components/Home/HomeTable";
 import MatchTable from "../components/Home/MatchTable";
 import PageTitl from "../components/Global/PageTitle";
 const Index = () => {
+  
   const [activeTab, setActiveTab] = useState(1);
+  const rows = Array.from({ length: 8 }).map((_, i) => ({
+    id: i + 1,
+    customer: "رامز",
+    phone: "+966 XX XXX XXXX",
+    matchDetails: "20/08/2026",
+    guest1: "خالد",
+    family: "خالد",
+  }));
+  const data ={
+    headers:[
+      {
+        name:"رقم",
+        key:"id",
+        id:1
+      },
+      {
+        name:"اسم العميل",
+        key:"customer",
+        id:2
+      },
+      {
+        name:"رقم الجوال",
+        key:"phone",
+        id:3
+      },
+      {
+        name:"تفاصيل المباراه",
+        key:"matchDetails",
+        id:4
+      },
+      {
+        name:"اسم الضيف الاول",
+        key:"guest1",
+        id:5
+      },
+      {
+        name:"اسم العائلة",
+        key:"family",
+        id:6
+      },
+    ],
+    rows:rows
+  }
   return (
     <div className="flex min-h-screen p-6 gap-8 max-w-[100vw]">
       <SideBar />
-      <main className="w-full">
+      <main className="w-calc100-340px">
         <PageTitl title="الرئيسية" icon={HomeActiveIcon} />
         <HomeTabs activeTab={activeTab} setActiveTab={setActiveTab} />
         {
           activeTab === 1 ? 
           <HomeTable />
-          : activeTab === 2 ? <MatchTable /> : ""
+          : activeTab === 2 ? <MatchTable data={data} /> : ""
         }
 
       </main>
