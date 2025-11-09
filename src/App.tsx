@@ -4,13 +4,13 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { MemberProvider } from "@/contexts/MemberContext";
-import Login from "./pages/Login";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
-import ForgetPassword from "./pages/ForgetPassword";
-import Verify from "./pages/Verify";
-import ResetPassword from "./pages/ResetPassword";
-import PlayGrounds from "./pages/PlayGrounds";
+import Login from "../src/pages/Login";
+import Index from "../src/pages/Index";
+import NotFound from "../src/pages/NotFound";
+import ForgetPassword from "../src/pages/ForgetPassword";
+import Verify from "../src/pages/Verify";
+import ResetPassword from "../src/pages/ResetPassword";
+import PlayGrounds from "../src/pages/PlayGrounds";
 
 const queryClient = new QueryClient();
 

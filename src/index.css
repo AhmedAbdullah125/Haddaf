@@ -105,7 +105,12 @@ All colors MUST be HSL.
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
-
+.h-16{
+  height: 64px;
+}
+.rounded-3xl{
+  border-radius: 24px;
+}
 @layer base {
   * {
     @apply border-border;
