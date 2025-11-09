@@ -224,7 +224,25 @@ All colors MUST be HSL.
 body{
   overflow-x: hidden;
 }
-
+.rdp-month{
+  width: 100%;
+}
+.rdp-day{
+  width: 100%;
+}
+.rdp-table{
+  width: 100%;
+  max-width: unset;
+}
+.rdp-head{
+  width: 100%;
+}
+.rdp-row{
+  width: 100%;
+}
+.rdp-tbody{
+  width: 100%;
+}
 .text-D10000 {
   color: #D10000;
 }

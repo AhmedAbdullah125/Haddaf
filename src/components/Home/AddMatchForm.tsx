@@ -13,10 +13,9 @@ const minutes = ["00", "15", "30", "45"];
 const ampmOptions = ["AM", "PM"];
 
 const FormSchema = z.object({
-  stadium: z.string().min(1, "هذا الحقل مطلوب"),
-  duration: z.string().min(1, "هذا الحقل مطلوب"),
   slotCost: z.string().min(1, "هذا الحقل مطلوب"),
   players: z.string().min(1, "هذا الحقل مطلوب"),
+  duration: z.string().min(1, "هذا الحقل مطلوب"),
   hour: z.string().min(1, "مطلوب"),
   minute: z.string().min(1, "مطلوب"),
   ampm: z.string().min(1, "مطلوب"),
@@ -27,10 +26,9 @@ const AddMatchForm = () => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      stadium: "",
-      duration: "",
       slotCost: "",
       players: "",
+      duration: "",
       hour: "",
       minute: "",
       ampm: "PM",
@@ -39,8 +37,8 @@ const AddMatchForm = () => {
     mode: "onChange",
   });
 
-  const onSubmit = (values: z.infer<typeof FormSchema>) => {
-    console.log(values);
+  const onSubmit = (data: z.infer<typeof FormSchema>) => {
+    console.log(data);
   };
 
   return (
@@ -48,47 +46,8 @@ const AddMatchForm = () => {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-[640px]">
           <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-[0_4px_10px_0_rgba(46,173,0,0.12)] max-w-[640px]">
-            {/* Row 1: اسم الملعب | مدة المباراة */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <FormField
-                control={form.control}
-                name="stadium"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="block text-center font-semibold text-gray-700 mb-2">اسم الملعب</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        placeholder="قم بتحديد الملعب"
-                        className="h-12 rounded-full px-6 text-right placeholder:text-gray-400 focus-visible:ring-0 focus-visible:ring-offset-0 border-gray-300"
-                      />
-                    </FormControl>
-                    <FormMessage className="text-red-600 text-sm mt-1 text-center" />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="duration"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="block text-center font-semibold text-gray-700 mb-2">مدة المباراة</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        placeholder="قم بتحديد المدة"
-                        className="h-12 rounded-full px-6 text-right placeholder:text-gray-400 focus-visible:ring-0 focus-visible:ring-offset-0 border-gray-300"
-                      />
-                    </FormControl>
-                    <FormMessage className="text-red-600 text-sm mt-1 text-center" />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            {/* Row 2: القطة للمباراة | عدد اللاعبين */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            {/* Top row: القطة للمباراة | عدد اللاعبين | مدة المباراة */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <FormField
                 control={form.control}
                 name="slotCost"
@@ -124,25 +83,42 @@ const AddMatchForm = () => {
                   </FormItem>
                 )}
               />
+
+              <FormField
+                control={form.control}
+                name="duration"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="block text-center font-semibold text-gray-700 mb-2">مدة المباراة</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="قم بتحديد المدة"
+                        className="h-12 rounded-full px-6 text-right placeholder:text-gray-400 focus-visible:ring-0 focus-visible:ring-offset-0 border-gray-300"
+                      />
+                    </FormControl>
+                    <FormMessage className="text-red-600 text-sm mt-1 text-center" />
+                  </FormItem>
+                )}
+              />
             </div>
 
             {/* Time and Date */}
             <div className="mt-8">
               <div className="text-center font-semibold mb-4">قم بتحديد وقت و تاريخ المباراة</div>
-              <div className="flex items-center justify-center gap-3 mb-6">
+              <div className="flex items-center justify-center gap-4 mb-6">
                 <FormField
                   control={form.control}
-                  name="hour"
+                  name="ampm"
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
                         <select
                           {...field}
-                          className="h-10 rounded-full border border-gray-300 bg-white px-4 text-right focus:outline-none"
+                          className="h-12 min-w-24 rounded-full border border-gray-300 bg-white px-4 text-right focus:outline-none"
                         >
-                          <option value="" disabled>ساعة</option>
-                          {hours.map((h) => (
-                            <option key={h} value={h}>{h}</option>
+                          {ampmOptions.map((ap) => (
+                            <option key={ap} value={ap}>{ap}</option>
                           ))}
                         </select>
                       </FormControl>
@@ -150,7 +126,6 @@ const AddMatchForm = () => {
                     </FormItem>
                   )}
                 />
-                <span className="text-gray-400">-</span>
                 <FormField
                   control={form.control}
                   name="minute"
@@ -159,7 +134,7 @@ const AddMatchForm = () => {
                       <FormControl>
                         <select
                           {...field}
-                          className="h-10 rounded-full border border-gray-300 bg-white px-4 text-right focus:outline-none"
+                          className="h-12 min-w-24 rounded-full border border-gray-300 bg-white px-4 text-right focus:outline-none"
                         >
                           <option value="" disabled>دقيقة</option>
                           {minutes.map((m) => (
@@ -171,18 +146,20 @@ const AddMatchForm = () => {
                     </FormItem>
                   )}
                 />
+                <span className="text-gray-400">-</span>
                 <FormField
                   control={form.control}
-                  name="ampm"
+                  name="hour"
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
                         <select
                           {...field}
-                          className="h-10 rounded-full border border-gray-300 bg-white px-4 text-right focus:outline-none"
+                          className="h-12 min-w-24 rounded-full border border-gray-300 bg-white px-4 text-right focus:outline-none"
                         >
-                          {ampmOptions.map((ap) => (
-                            <option key={ap} value={ap}>{ap}</option>
+                          <option value="" disabled>ساعة</option>
+                          {hours.map((h) => (
+                            <option key={h} value={h}>{h}</option>
                           ))}
                         </select>
                       </FormControl>
@@ -198,13 +175,17 @@ const AddMatchForm = () => {
                 render={({ field }) => (
                   <FormItem className="flex justify-center">
                     <FormControl>
-                      <div className="rounded-3xl">
+                      <div className="rounded-3xl w-full">
                         <DayPicker
                           mode="single"
                           selected={field.value}
                           onSelect={(d) => field.onChange(d ?? field.value)}
                           dir="rtl"
-                          className="rounded-3xl"
+                          className="rounded-3xl w-full"
+                          modifiersClassNames={{
+                            selected: "bg-primary text-white",
+                            today: "ring-2 ring-primary",
+                          }}
                         />
                       </div>
                     </FormControl>
