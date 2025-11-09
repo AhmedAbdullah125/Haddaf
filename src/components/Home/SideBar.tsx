@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "@/assets/logo.png";
+import logo from "../../../src/assets/Logo.png";
 import cornerBall from "@/assets/football.svg";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { NavLink } from "react-router-dom";
