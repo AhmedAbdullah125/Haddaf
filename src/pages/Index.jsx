@@ -72,7 +72,7 @@ const Index = () => {
   return (
     <div className="flex min-h-screen p-6 gap-8 max-w-[100vw]">
       <SideBar />
-      <main className="w-calc100-340px">
+      <main className="md:w-calc100-340px w-full">
         <PageTitl title="الرئيسية" icon={HomeActiveIcon} />
         <HomeTabs activeTab={activeTab} setActiveTab={setActiveTab} tabs={tabs} />
         {

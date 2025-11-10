@@ -106,7 +106,7 @@ const AddMatchForm = () => {
             {/* Time and Date */}
             <div className="mt-8">
               <div className="text-center font-semibold mb-4">قم بتحديد وقت و تاريخ المباراة</div>
-              <div className="flex items-center justify-center gap-4 mb-6">
+              <div className="flex items-center justify-center gap-2 mb-6">
                 <FormField
                   control={form.control}
                   name="ampm"
@@ -115,7 +115,7 @@ const AddMatchForm = () => {
                       <FormControl>
                         <select
                           {...field}
-                          className="h-12 min-w-24 rounded-full border border-gray-300 bg-white px-4 text-right focus:outline-none"
+                          className="h-12  rounded-full border border-gray-300 bg-white px-4 text-right focus:outline-none"
                         >
                           {ampmOptions.map((ap) => (
                             <option key={ap} value={ap}>{ap}</option>
@@ -134,7 +134,7 @@ const AddMatchForm = () => {
                       <FormControl>
                         <select
                           {...field}
-                          className="h-12 min-w-24 rounded-full border border-gray-300 bg-white px-4 text-right focus:outline-none"
+                          className="h-12  rounded-full border border-gray-300 bg-white px-4 text-right focus:outline-none"
                         >
                           <option value="" disabled>دقيقة</option>
                           {minutes.map((m) => (
@@ -155,7 +155,7 @@ const AddMatchForm = () => {
                       <FormControl>
                         <select
                           {...field}
-                          className="h-12 min-w-24 rounded-full border border-gray-300 bg-white px-4 text-right focus:outline-none"
+                          className="h-12  rounded-full border border-gray-300 bg-white px-4 text-right focus:outline-none"
                         >
                           <option value="" disabled>ساعة</option>
                           {hours.map((h) => (

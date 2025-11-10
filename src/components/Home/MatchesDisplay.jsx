@@ -88,14 +88,14 @@ const MatchesDisplay = () => {
                   <td className={`px-6 py-4 text-nowrap text-lg font-medium ${row.status === "active" ? "text-green-600" : "text-red-600"}`}>{row.status == "active" ? "نشط" : "غير نشط"}</td>
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-4">
-                      <Link to={`/playground/matches/${row.id}`} className="text-gray-600 hover:text-gray-700" aria-label="view"><IconEye /></Link>
+                      <Link to={`/match/view/${row.id}`} className="text-gray-600 hover:text-gray-700" aria-label="view"><IconEye /></Link>
                       <Link className="text-green-600 hover:text-green-700" to={`/playground/edit/${row.id}`} aria-label="edit"><IconEdit /></Link>
                       <AlertDialog>
                         <AlertDialogTrigger asChild>
-                          <button className="text-red-600 hover:text-red-700" aria-label="delete"><IconTrash /></button>
+                          <button className="text-red-600 hover:text-red-700 " aria-label="delete"><IconTrash /></button>
                         </AlertDialogTrigger>
                         <AlertDialogContent className="max-w-md w-full px-8 py-11 flex flex-col gap-12 items-center">
-                          <div className="absolute top-2 end-5 w-10 h-10 rounded-full p-1 hover:bg-red-700"
+                          <div className="absolute top-2 end-5 w-10 h-10 rounded-full p-1 hover:bg-red-700 hover:text-white flexCenter"
                             onClick={() => {
                               document.getElementById("cancel").click();
                             }}

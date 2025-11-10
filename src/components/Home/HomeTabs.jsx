@@ -3,11 +3,11 @@ import football from "../../assets/football.svg";
 const HomeTabs = ({ setActiveTab, tabs }) => {
     
     return (
-        <div className="flex gap-10 main-content mb-9">
+        <div className="flex flex-col flex-small-col gap-small main-content mb-9">
             {
                 tabs.map((tab) => (
-                    <div key={tab.id} className="flex gap-6 items-center relative h-28 w-full overflow-auto cursor-pointer rounded-3xl border border-gray-200 bg-white p-6 shadow-[0_4px_10px_0_rgba(46,173,0,0.25)]" onClick={() => setActiveTab(tab.id)}>
-                        <div className="w-14 h-14 rounded-xl bg-white shadow-[0_4px_4px_rgba(46,173,0,0.1)]">
+                    <div key={tab.id} className="flex md-gap-6-gap-2 items-center relative md:h-28 h-20 w-full overflow-auto cursor-pointer rounded-3xl border border-gray-200 bg-white variable-p-small shadow-[0_4px_10px_0_rgba(46,173,0,0.25)]" onClick={() => setActiveTab(tab.id)}>
+                        <div className="w-14 h-14 rounded-xl flexCenter bg-white shadow-[0_4px_10px_0_rgba(46,173,0,0.25)]">
                             <LazyLoadImage src={tab.icon} alt="" className="w-7 h-auto object-contain" />
                         </div>
                         <div className="flex items-start flex-col h-full justify-between">
