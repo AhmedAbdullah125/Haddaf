@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, } from "@/components/ui/alert-dialog"
 import { ImCancelCircle } from "react-icons/im";
-
+import { motion } from "framer-motion";
 import { Switch } from "@/components/ui/switch"
 import { Link } from "react-router-dom";
 
@@ -50,15 +50,21 @@ const SettingsCont = () => {
     const [notifEnabled, setNotifEnabled] = useState(true);
 
     const items = [
-        { id: 2, title: "تعديل رقم الجوال", Icon: IconPhone,href: "/phone_update" },
-        { id: 3, title: "تعديل كلمة المرور", Icon: IconLock,href: "/settings" },
-        { id: 4, title: "من نحن", Icon: IconInfo,href: "/about" },
-        { id: 5, title: "الشروط و الاحكام", Icon: IconPencil,href: "/terms_and_conditions" },
-        { id: 6, title: "سياسة الخصوصية", Icon: IconDoc,href: "/privacy_policy" },
+        { id: 2, title: "تعديل رقم الجوال", Icon: IconPhone, href: "/phone_update" },
+        { id: 3, title: "تعديل كلمة المرور", Icon: IconLock, href: "/password_update" },
+        { id: 4, title: "من نحن", Icon: IconInfo, href: "/about" },
+        { id: 5, title: "الشروط و الاحكام", Icon: IconPencil, href: "/terms_and_conditions" },
+        { id: 6, title: "سياسة الخصوصية", Icon: IconDoc, href: "/privacy_policy" },
     ];
 
     return (
-        <div className="py-8 px-6 border shadow-[0_4px_10px_0_rgba(46,173,0,0.25)] border-black/10 rounded-3xl">
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            //make delay here
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0 }}
+            className="py-8 px-6 border shadow-[0_4px_10px_0_rgba(46,173,0,0.25)] border-black/10 rounded-3xl">
             <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg md:text-xl font-extrabold text-gray-900">اعدادات الحساب</h3>
             </div>
@@ -73,7 +79,7 @@ const SettingsCont = () => {
                     <Switch id="airplane-mode" style={{ direction: "ltr" }} onCheckedChange={setNotifEnabled} checked={notifEnabled} />
                 </div>
 
-                {items.map(({ id, title, Icon,href }) => (
+                {items.map(({ id, title, Icon, href }) => (
                     <Link to={href} key={id} className="flex items-center justify-between py-4">
                         <div className="flex items-center gap-3">
                             <Icon className="w-5 h-5 text-gray-500" />
@@ -114,7 +120,7 @@ const SettingsCont = () => {
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
-        </div>
+        </motion.div>
     );
 };
 

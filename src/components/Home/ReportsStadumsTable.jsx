@@ -3,6 +3,7 @@ import greenGound from "../../assets/greenGound.svg";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import Pagination from "../Global/Pagination";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 const ReportsStadumsTable = () => {
 
 const rows = Array.from({ length: 4 }).map((_, i) => ({
@@ -32,13 +33,19 @@ const SortIcon = ({ className = "w-3.5 h-3.5 text-gray-400" }) => (
 
 const [page, setPage] = useState(1);
   return (
-    <div className="home-table mt-8" >
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      //make delay here
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: 0.5 }}
+       className="home-table mt-8" >
       {/* Container */}
       <div className=" bg-white shadow-[0_4px_12px_rgba(46,173,0,0.08)] overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4">
           <div className="flex items-center gap-2 text-green-700">
-            <LazyLoadImage src={greenGound} alt="" className="w-7 h-auto object-contain" />
+            <LazyLoadImage src={greenGound} alt="Haddaf" className="w-7 h-auto object-contain" />
             <h3 className="text-lg md:text-xl font-extrabold text-gray-900">تفاصيل الملاعب</h3>
           </div>
         </div>
@@ -77,7 +84,7 @@ const [page, setPage] = useState(1);
         </div>
       </div>
       <Pagination total={2} current={page} onChange={(p) => setPage(p)} />
-    </div>
+    </motion.div>
   );
 };
 

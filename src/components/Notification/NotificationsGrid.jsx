@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import notifIcon from "../../assets/notifIcon.svg";
 import deleteIcon from "../../assets/deleteIicon.svg";
 import nonotification from "../../assets/nonotification.jpg";
+import { motion } from "framer-motion";
 const NotificationsGrid = () => {
 
   const [items, setItems] = useState([
@@ -15,7 +16,13 @@ const NotificationsGrid = () => {
   const handleDelete = (id) => setItems((prev) => prev.filter((n) => n.id !== id));
   const handleDeleteAll = () => setItems([]);
   return (
-    <div className="py-8 px-6  border shadow-[0_4px_10px_0_rgba(46,173,0,0.25)] border-black/10 rounded-3xl">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      //make delay here
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: 0.5 }}
+      className="py-8 px-6  border shadow-[0_4px_10px_0_rgba(46,173,0,0.25)] border-black/10 rounded-3xl">
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-lg md:text-xl font-extrabold text-gray-900">أحدث التنبيهات</h3>{
           items.length > 0 &&
@@ -46,11 +53,16 @@ const NotificationsGrid = () => {
             ))}
           </div>
           :
-          <div className="w-full flexCenter h-300px">
+          <motion.div
+            initial={{ opacity: 0, }}
+            whileInView={{ opacity: 1,  }}
+            //make delay here
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0 }} className="w-full flexCenter h-300px">
             <img src={nonotification} alt="nonotification" className="w-full h-full object-contain" />
-          </div>
+          </motion.div>
       }
-    </div>
+    </motion.div>
   );
 };
 

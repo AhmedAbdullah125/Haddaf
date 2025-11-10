@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, } from "@/components/ui/alert-dialog"
 import { ImCancelCircle } from "react-icons/im";
 import Pagination from "../Global/Pagination";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 const MatchesDisplay = () => {
 
@@ -63,7 +64,13 @@ const MatchesDisplay = () => {
 
   const [page, setPage] = useState(1);
   return (
-    <div className="home-table mt-8" >
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      //make delay here
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: 0.5 }}
+       className="home-table mt-8" >
       {/* Container */}
       <div className=" bg-white shadow-[0_4px_10px_0_rgba(46,173,0,0.25)] border-black/10 border rounded-3xl overflow-hidden">
 
@@ -134,7 +141,7 @@ const MatchesDisplay = () => {
         </div>
       </div>
       <Pagination total={2} current={page} onChange={(p) => setPage(p)} />
-    </div>
+    </motion.div>
   );
 };
 

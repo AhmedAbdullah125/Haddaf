@@ -7,6 +7,7 @@ import contactIcon from "../../assets/contactIcon.svg";
 import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Textarea } from "../ui/textarea";
+import { motion } from "framer-motion";
 
 const FormSchema = z.object({
   message: z.string().min(3, "الحد الأدنى 3 أحرف").nonempty("هذا الحقل مطلوب"),
@@ -24,7 +25,13 @@ const ContactForm = () => {
   };
 
   return (
-    <div dir="rtl" className="w-full">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      //make delay here
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: 0.5 }}
+       dir="rtl" className="w-full">
       <div className="flex items-center gap-4 mb-8">
         <LazyLoadImage src={contactIcon} alt="contact" className="w-8 h-8 object-contain" />
         <div className="flex flex-col h-full justify-center gap-2">
@@ -63,7 +70,7 @@ const ContactForm = () => {
           </div>
         </form>
       </Form>
-    </div>
+    </motion.div>
   );
 };
 

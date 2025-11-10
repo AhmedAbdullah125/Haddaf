@@ -215,8 +215,8 @@ const SideBar = () => {
             </AlertDialogContent>
           </AlertDialog>
         </div>
-        <LazyLoadImage src={cornerBall} alt="cornerBall" className="pointer-events-none select-none absolute bottom-0 end-0 w-28 h-28 z-10" />
       </div>
+        <LazyLoadImage src={cornerBall} alt="cornerBall" className="pointer-events-none select-none absolute bottom-0 end-0 w-28 h-28 z-10 rounded-[48px]" />
     </aside>
   );
 };

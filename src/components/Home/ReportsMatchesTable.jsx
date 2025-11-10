@@ -44,7 +44,7 @@ const [page, setPage] = useState(1);
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4">
           <div className="flex items-center gap-2 text-green-700">
-            <LazyLoadImage src={greenGound} alt="" className="w-7 h-auto object-contain" />
+            <LazyLoadImage src={greenGound} alt="Haddaf" className="w-7 h-auto object-contain" />
             <h3 className="text-lg md:text-xl font-extrabold text-gray-900">تفاصيل مبارايات ملعب النخيل</h3>
           </div>
         </div>

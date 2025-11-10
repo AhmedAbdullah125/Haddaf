@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-
+import { motion } from "framer-motion";
 const FormSchema = z.object({
   username: z.string().min(3, "الحد الأدنى 3 أحرف").nonempty("هذا الحقل مطلوب"),
   password: z.string().min(6, "الحد الأدنى 6 أحرف").nonempty("هذا الحقل مطلوب"),
@@ -34,7 +34,12 @@ const Login = () => {
   return (
     <div className="login-page">
       <div className="flex min-h-[100vh]">
-        <div className="w-full h-full min-h-[100vh] flex items-center justify-center login-form-cont">
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          //make delay here
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.5 }} className="w-full h-full min-h-[100vh] flex items-center justify-center login-form-cont">
           <div className="login-form-cont w-full max-w-[520px] px-6" dir="rtl">
             <h1 className="text-3xl md:text-4xl font-extrabold text-black text-center mb-10"> تسجيل الدخول </h1>
 
@@ -136,13 +141,18 @@ const Login = () => {
               </form>
             </Form>
           </div>
-        </div>
-        <div className="w-full h-full min-h-[100vh] relative hidden md:block">
-          <LazyLoadImage src={backgroundImg} alt="" className="h-full w-full min-h-[100vh]" />
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          //make delay here
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.5 }} className="w-full h-full min-h-[100vh] relative hidden md:block">
+          <LazyLoadImage src={backgroundImg} alt="Haddaf" className="h-full w-full min-h-[100vh]" />
           <div className="absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center">
-            <LazyLoadImage src={loginimg} alt="" className="h-full w-full max-w-[430px] object-contain" />
+            <LazyLoadImage src={loginimg} alt="Haddaf" className="h-full w-full max-w-[430px] object-contain animatioed-img" />
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

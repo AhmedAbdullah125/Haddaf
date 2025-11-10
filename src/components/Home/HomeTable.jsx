@@ -4,7 +4,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, } from "@/components/ui/alert-dialog"
 import { ImCancelCircle } from "react-icons/im";
 import { Link } from "react-router-dom";
-
+import { motion } from "framer-motion";
 import Pagination from "../Global/Pagination";
 const HomeTable = () => {
 
@@ -80,13 +80,19 @@ const HomeTable = () => {
 
   const [page, setPage] = useState(1);
   return (
-    <div className="home-table mt-8" >
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      //make delay here
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: 0.5 }}
+      className="home-table mt-8" >
       {/* Container */}
       <div className=" bg-white shadow-[0_4px_12px_rgba(46,173,0,0.08)] overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4">
           <div className="flex items-center gap-2 text-green-700">
-            <LazyLoadImage src={greenGound} alt="" className="w-7 h-auto object-contain" />
+            <LazyLoadImage src={greenGound} alt="Haddaf" className="w-7 h-auto object-contain" />
             <h3 className="text-lg md:text-xl font-extrabold text-gray-900">احدث المباريات</h3>
           </div>
         </div>
@@ -156,7 +162,7 @@ const HomeTable = () => {
         </div>
       </div>
       <Pagination total={2} current={page} onChange={(p) => setPage(p)} />
-    </div>
+    </motion.div>
   );
 };
 

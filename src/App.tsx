@@ -23,6 +23,8 @@ import About from "../src/pages/About";
 import TermsAndConditions from "../src/pages/TermsAndConditions";
 import PrivacyPolicy from "../src/pages/PrivacyPolicy";
 import PhoneUpdate from "../src/pages/PhoneUpdate";
+import PhoneOTP from "../src/pages/PhoneOTP";
+import PasswordUpdate from "../src/pages/PasswordUpdate";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -52,7 +54,9 @@ const App = () => (
           <Route path="/terms_and_conditions" element={<TermsAndConditions />} />
           <Route path="/privacy_policy" element={<PrivacyPolicy />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/phone_opt" element={<PhoneOTP />} />
           <Route path="/phone_update" element={<PhoneUpdate />} />
+          <Route path="/password_update" element={<PasswordUpdate />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

@@ -360,3 +360,20 @@ body {
     width: calc(100%);
   }
 }
+.animatioed-img{
+  animation: marquee 5s infinite ease-in-out ;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
