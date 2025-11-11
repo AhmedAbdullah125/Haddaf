@@ -378,6 +378,12 @@ body {
 .max-w-96{
   max-width: 384px;
 }
+.home-tab:hover {
+background-color: #E4FFEB;
+}
+.home-tab{
+  transition: all 0.3s ease-in-out;
+}
 @keyframes marquee {
   0% {
     transform: translateY(0);

@@ -33,7 +33,7 @@ const SideBar = () => {
       ${open ? "translate-x-72" : "translate-x-0"} lg:translate-x-0
       `}
     >
-      <div className=" w-full h-full flex flex-col items-stretch gap-10 relative">
+      <div className=" w-full h-full flex flex-col items-stretch gap-10 relative ">
         <div className="flex lg:hidden   absolute top-10 -end-20 border shadow-[0_4px_10px_0_rgba(46,173,0,0.25)] w-14 h-14 cursor-pointer rounded-bars bg-white items-center justify-center z-10 " onClick={() => setOpen(!open)}>
           <LazyLoadImage src={bars} alt="bars" className="h-10 w-auto" />
         </div>
@@ -41,7 +41,7 @@ const SideBar = () => {
 
         <div className="links flex flex-col justify-between h-full">
           <div className="upper-part flex flex-col gap-6">
-            <NavLink to="/" className={({ isActive }) => ["group flex items-center gap-3 w-full rounded-full px-4 py-[17px] text-sm font-semibold transition", isActive ? "bg-green-600 text-white" : "text-gray-700 hover:bg-gray-100",].join(" ")}>
+            <NavLink to="/" className={({ isActive }) => ["group hover:scale-105 ease-in-out duration-300 flex items-center gap-3 w-full rounded-full px-4 py-[17px] text-sm font-semibold transition", isActive ? "bg-green-600 text-white" : "text-gray-700 hover:bg-gray-100",].join(" ")}>
               {/* make home svg icon */}
               <LazyLoadImage src={pathname === "/" ? homeWhite : homeGray} alt="home" className="h-5 w-auto" />
               <span className="flex items-center gap-3">
@@ -49,7 +49,7 @@ const SideBar = () => {
               </span>
             </NavLink>
 
-            <NavLink to="/playgrounds" className={({ isActive }) => ["group flex items-center gap-3 w-full rounded-full px-4 py-[17px] text-sm font-semibold transition", isActive ? "bg-green-600 text-white" : "text-gray-700 hover:bg-gray-100",].join(" ")}>
+            <NavLink to="/playgrounds" className={({ isActive }) => ["group hover:scale-105 ease-in-out duration-300 flex items-center gap-3 w-full rounded-full px-4 py-[17px] text-sm font-semibold transition", isActive ? "bg-green-600 text-white" : "text-gray-700 hover:bg-gray-100",].join(" ")}>
               {/* make playGround svg icon */}
               <LazyLoadImage src={pathname === "/playgrounds" ? stadumWhite : stadumGray} alt="playGround" className="h-5 w-auto" />
               <span className="flex items-center gap-3">
@@ -57,7 +57,7 @@ const SideBar = () => {
               </span>
             </NavLink>
 
-            <NavLink to="/reports" className={({ isActive }) => ["group flex items-center gap-3 w-full rounded-full px-4 py-[17px] text-sm font-semibold transition", isActive ? "bg-green-600 text-white" : "text-gray-700 hover:bg-gray-100",].join(" ")}>
+            <NavLink to="/reports" className={({ isActive }) => ["group hover:scale-105 ease-in-out duration-300 flex items-center gap-3 w-full rounded-full px-4 py-[17px] text-sm font-semibold transition", isActive ? "bg-green-600 text-white" : "text-gray-700 hover:bg-gray-100",].join(" ")}>
               {/* make report svg icon */}
               <LazyLoadImage src={pathname === "/reports" ? reportWhite : reportGray} alt="report" className="h-5 w-auto" />
               <span className="flex items-center gap-3">
@@ -66,7 +66,7 @@ const SideBar = () => {
 
             </NavLink>
 
-            <NavLink to="/notifications" className={({ isActive }) => ["group flex items-center gap-3 w-full  rounded-full px-4 py-[17px] text-sm font-semibold transition", isActive ? "bg-green-600 text-white" : "text-gray-700 hover:bg-gray-100",].join(" ")}>
+            <NavLink to="/notifications" className={({ isActive }) => ["group hover:scale-105 ease-in-out duration-300 flex items-center gap-3 w-full  rounded-full px-4 py-[17px] text-sm font-semibold transition", isActive ? "bg-green-600 text-white" : "text-gray-700 hover:bg-gray-100",].join(" ")}>
               {/* make notification svg icon */}
               <LazyLoadImage src={pathname === "/notifications" ? notificationWhite : notificationGray} alt="notification" className="h-5 w-auto" />
               <span className="flex items-center gap-3">
@@ -74,21 +74,21 @@ const SideBar = () => {
               </span>
             </NavLink>
 
-            <NavLink to="/contact" className={({ isActive }) => ["group flex items-center gap-3 w-full  rounded-full px-4 py-[17px] text-sm font-semibold transition", isActive ? "bg-green-600 text-white" : "text-gray-700 hover:bg-gray-100",].join(" ")}>
+            <NavLink to="/contact" className={({ isActive }) => ["group hover:scale-105 ease-in-out duration-300 flex items-center gap-3 w-full  rounded-full px-4 py-[17px] text-sm font-semibold transition", isActive ? "bg-green-600 text-white" : "text-gray-700 hover:bg-gray-100",].join(" ")}>
               <LazyLoadImage src={pathname === "/contact" ? contactWhite : contactGray} alt="contact" className="h-5 w-auto" />
               <span className="flex items-center gap-3">
                 تواصل معنا
               </span>
             </NavLink>
 
-            <NavLink to="/profile" className={({ isActive }) => ["group flex items-center gap-3 w-full rounded-full px-4 py-[17px] text-sm font-semibold transition", isActive ? "bg-green-600 text-white" : "text-gray-700 hover:bg-gray-100",].join(" ")}>
+            <NavLink to="/profile" className={({ isActive }) => ["group hover:scale-105 ease-in-out duration-300 flex items-center gap-3 w-full rounded-full px-4 py-[17px] text-sm font-semibold transition", isActive ? "bg-green-600 text-white" : "text-gray-700 hover:bg-gray-100",].join(" ")}>
               <LazyLoadImage src={pathname === "/profile" ? profileWhite : profileGray} alt="profile" className="h-5 w-auto" />
               <span className="flex items-center gap-3">
                 الملف الشخصي
               </span>
             </NavLink>
 
-            <NavLink to="/settings" className={({ isActive }) => ["group flex items-center gap-3 w-full rounded-full px-4 py-[17px] text-sm font-semibold transition", isActive ? "bg-green-600 text-white" : "text-gray-700 hover:bg-gray-100",].join(" ")}>
+            <NavLink to="/settings" className={({ isActive }) => ["group hover:scale-105 ease-in-out duration-300 flex items-center gap-3 w-full rounded-full px-4 py-[17px] text-sm font-semibold transition", isActive ? "bg-green-600 text-white" : "text-gray-700 hover:bg-gray-100",].join(" ")}>
               <LazyLoadImage src={pathname === "/settings" ? settingsWhite : settingsGray} alt="settings" className="h-5 w-auto" />
               <span className="flex items-center gap-3">
                 الاعدادات
