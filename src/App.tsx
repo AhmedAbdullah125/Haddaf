@@ -24,6 +24,7 @@ import PrivacyPolicy from "../src/pages/PrivacyPolicy";
 import PhoneUpdate from "../src/pages/PhoneUpdate";
 import PhoneOTP from "../src/pages/PhoneOTP";
 import PasswordUpdate from "../src/pages/PasswordUpdate";
+import Profile from "../src/pages/Profile";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -55,6 +56,7 @@ const App = () => (
           <Route path="/phone_opt" element={<PhoneOTP />} />
           <Route path="/phone_update" element={<PhoneUpdate />} />
           <Route path="/password_update" element={<PasswordUpdate />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

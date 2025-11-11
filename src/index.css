@@ -363,7 +363,21 @@ body {
 .animatioed-img{
   animation: marquee 5s infinite ease-in-out ;
 }
-
+.px-10{
+  padding-inline: 40px;
+}
+.bg-0691290D{
+  background-color: #0691290D;
+}
+.w-fit{
+  width: fit-content;
+}
+.object-cover{
+  object-fit: cover;
+}
+.max-w-96{
+  max-width: 384px;
+}
 @keyframes marquee {
   0% {
     transform: translateY(0);
