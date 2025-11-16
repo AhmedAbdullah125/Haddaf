@@ -5,15 +5,14 @@ import { useForm } from "react-hook-form";
 import { Form, FormField, FormItem, FormControl, FormMessage, FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import profileImg from "../../assets/profileImg.jpg";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { motion } from "framer-motion";
-
+import { updateProfile } from "../requests/updateProfile";
 const FormSchema = z.object({
   fullName: z.string().min(3, "الحد الأدنى 3 أحرف").nonempty("هذا الحقل مطلوب"),
   nationalId: z
     .string()
-    .regex(/^\d{9,15}$/g, "يجب أن يكون رقماً من 9 إلى 15 خانة")
+    .regex(/^\d{10,15}$/g, "يجب أن يكون رقماً من 10 إلى 15 خانة")
     .nonempty("هذا الحقل مطلوب"),
   avatar: z
     .any()
@@ -28,18 +27,19 @@ const FormSchema = z.object({
     ),
 });
 
-const EditProfile = () => {
-  const [preview, setPreview] = useState(profileImg);
+const EditProfile = ({ data }) => {
+  const [preview, setPreview] = useState(data?.image);
   const fileInputRef = useRef(null);
 
   const form = useForm({
     resolver: zodResolver(FormSchema),
-    defaultValues: { fullName: "", nationalId: "", avatar: undefined },
+    defaultValues: { fullName: data?.name, nationalId: data?.identity_number, avatar: undefined },
     mode: "onChange",
   });
 
   const onSubmit = (values) => {
     console.log(values);
+    updateProfile({ data: values });
   };
 
   const handleFilePick = () => fileInputRef.current?.click();
@@ -55,12 +55,12 @@ const EditProfile = () => {
 
   return (
     <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          //make delay here
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0 }}
-           className="max-w-96 flex flex-col items-center gap-6">
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      //make delay here
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: 0 }}
+      className="max-w-96 flex flex-col items-center gap-6">
       <div className="flex flex-col items-center gap-3 w-full" dir="rtl">
         <button type="button" onClick={handleFilePick} className="focus:outline-none">
           <LazyLoadImage src={preview} alt="profileImg" className="w-28 h-28 rounded-full mb-2 object-cover" />
@@ -84,7 +84,7 @@ const EditProfile = () => {
                     <FormControl>
                       <Input
                         {...field}
-                        placeholder="رامز خالد"
+                        placeholder={data?.name}
                         className="h-12 rounded-full pr-4 pl-4 text-right placeholder:text-gray-400 focus-visible:ring-0 focus-visible:ring-offset-0 border-gray-300"
                       />
                     </FormControl>
@@ -103,7 +103,7 @@ const EditProfile = () => {
                       <Input
                         {...field}
                         inputMode="numeric"
-                        placeholder="XXXXXXXXX"
+                        placeholder={data?.identity_number}
                         className="h-12 rounded-full pr-4 pl-4 text-right placeholder:text-gray-400 focus-visible:ring-0 focus-visible:ring-offset-0 border-gray-300"
                       />
                     </FormControl>

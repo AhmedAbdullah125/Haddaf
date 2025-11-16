@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, { useMemo, useEffect, useRef, useState } from "react";
 import backgroundImg from "@/assets/registrationbg.svg";
 import loginimg from "@/assets/OTP.svg";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -8,6 +8,9 @@ import { useForm } from "react-hook-form";
 import { Form, FormField, FormItem, FormControl, FormMessage, FormLabel } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { userForgetPasswordCheckCode } from "@/components/requests/userForgetPasswordCheckCode";
+import { reSendOTP } from '@/components/requests/reSendOPT'
 const FormSchema = z.object({
   otp: z
     .string()
@@ -16,7 +19,19 @@ const FormSchema = z.object({
 });
 type OTPArray = [string, string, string, string];
 
-const Verify = () => {
+const Verify = ({ setStep, formData, setFormData }) => {
+  const [resendCooldown, setResendCooldown] = useState(30);
+
+  useEffect(() => {
+    if (resendCooldown <= 0) return;
+
+    const intervalId = setInterval(() => {
+      setResendCooldown((prev) => (prev <= 1 ? 0 : prev - 1));
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [resendCooldown]);
+  const [loading, setLoading] = useState(false)
   const [otp, setOtp] = useState<OTPArray>(["", "", "", ""]);
   const inputsRef = useRef<Array<HTMLInputElement | null>>([]);
 
@@ -95,12 +110,18 @@ const Verify = () => {
   const onSubmit = (values: z.infer<typeof FormSchema>) => {
     // TODO: integrate with your API
     console.log("OTP submitted:", values.otp);
+    userForgetPasswordCheckCode({ data: values, setLoading, formData, setStep });
+
   };
 
   const handleResend = () => {
     // TODO: call resend endpoint
     // Optionally start a cooldown timer for UX
     console.log("Resend OTP");
+    if (resendCooldown > 0) return;
+    setResendCooldown(30);
+    reSendOTP({ data: formData, setLoading });
+
   };
 
   return (
@@ -113,7 +134,7 @@ const Verify = () => {
           //make delay here
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.5 }}
-           className="w-full h-full min-h-[100vh] flex items-center justify-center login-form-cont">
+          className="w-full h-full min-h-[100vh] flex items-center justify-center login-form-cont">
           <div className="login-form-cont w-full max-w-[520px] px-6" dir="rtl">
             <h1 className="text-3xl md:text-4xl font-extrabold text-black text-center mb-10">
               رمز التحقق
@@ -154,16 +175,19 @@ const Verify = () => {
                   )}
                 />
 
-                <Button type="submit" className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold rounded-full py-6">
+                <Button type="submit" className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold rounded-full py-6" disabled={loading}>
                   ارسال
                 </Button>
                 <div className="text-center">
                   <button
                     type="button"
                     onClick={handleResend}
-                    className="text-green-600 hover:text-green-700 underline text-lg font-semibold"
+                    className={`text-green-600 hover:text-green-700 ${resendCooldown > 0 ? "cursor-not-allowed opacity-45 text-green-500" : "cursor-pointer"} underline text-lg font-semibold`}
+                    disabled={loading || resendCooldown > 0}
                   >
-                    اعادة ارسال
+                    {resendCooldown > 0
+                      ? `اعادة ارسال بعد ${resendCooldown} ثانية`
+                      : "اعادة ارسال"}
                   </button>
                 </div>
               </form>
@@ -173,12 +197,12 @@ const Verify = () => {
 
         {/* Left side illustration */}
         <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  //make delay here
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.5 }}
-                   className="w-full h-full min-h-[100vh] relative hidden md:block">
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          //make delay here
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          className="w-full h-full min-h-[100vh] relative hidden md:block">
           <LazyLoadImage src={backgroundImg} alt="Haddaf" className="h-full w-full min-h-[100vh]" />
           <div className="absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center">
             <LazyLoadImage

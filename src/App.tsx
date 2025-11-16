@@ -3,65 +3,93 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "../src/pages/Login";
-import Index from "../src/pages/Index";
-import NotFound from "../src/pages/NotFound";
-import ForgetPassword from "../src/pages/ForgetPassword";
-import Verify from "../src/pages/Verify";
-import ResetPassword from "../src/pages/ResetPassword";
-import PlayGrounds from "../src/pages/PlayGrounds";
-import GroundMatches from "../src/pages/GroundMatches";
-import AddMatch from "../src/pages/AddMatch";
-import AddPlayGround from "../src/pages/AddPlayGround";
-import Reports from "../src/pages/Reports";
-import ViewMatch from "../src/pages/ViewMatch";
-import Notifications from "../src/pages/Notifications";
-import Contact from "../src/pages/Contact";
-import Settings from "../src/pages/Settings";
-import About from "../src/pages/About";
-import TermsAndConditions from "../src/pages/TermsAndConditions";
-import PrivacyPolicy from "../src/pages/PrivacyPolicy";
-import PhoneUpdate from "../src/pages/PhoneUpdate";
-import PhoneOTP from "../src/pages/PhoneOTP";
-import PasswordUpdate from "../src/pages/PasswordUpdate";
-import Profile from "../src/pages/Profile";
+import Index from "@/pages/Index";
+import NotFound from "@/pages/NotFound";
+import Verify from "@/pages/Verify";
+import PlayGrounds from "@/pages/PlayGrounds";
+import GroundMatches from "@/pages/GroundMatches";
+import AddMatch from "@/pages/AddMatch";
+import AddPlayGround from "@/pages/AddPlayGround";
+import Reports from "@/pages/Reports";
+import ViewMatch from "@/pages/ViewMatch";
+import Notifications from "@/pages/Notifications";
+import Contact from "@/pages/Contact";
+import Settings from "@/pages/Settings";
+import PasswordUpdate from "@/pages/PasswordUpdate";
+import About from "@/pages/About";
+import TermsAndConditions from "@/pages/TermsAndConditions";
+import PrivacyPolicy from "@/pages/PrivacyPolicy";
+import PhoneUpdate from "@/pages/PhoneUpdate";
+import PhoneOTP from "@/pages/PhoneOTP";
+import Profile from "@/pages/Profile";
+import LoginWrapper from "@/pages/LoginWrapper";
+import Login from "@/pages/Login";
 const queryClient = new QueryClient();
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+
+const isAuthed = () =>
+  typeof window !== "undefined" && !!localStorage.getItem("token");
+
+function RequireAuth() {
+  const location = useLocation();
+  if (!isAuthed()) {
+    return <Navigate to="/login" replace state={{ from: location }} />;
+  }
+  return <Outlet />;
+}
+
+// Optional: prevent logged-in users from seeing auth pages
+function GuestOnly() {
+  if (isAuthed()) {
+    return <Navigate to="/" replace />;
+  }
+  return <Outlet />;
+}
+
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter basename="/">
-          <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/playgrounds" element={<PlayGrounds />} />
-          <Route path="/playground/edit/:id" element={<AddPlayGround />} />
-          <Route path="/match/edit/:id" element={<AddMatch />} />
-          <Route path="/match/add" element={<AddMatch />} />
-          <Route path="/playground/matches/:id" element={<GroundMatches />} />
-          <Route path="/playground/add" element={<AddPlayGround />} />
-          <Route path="/reports" element={<Reports />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/verify" element={<Verify />} />
-          <Route path="/forget-password" element={<ForgetPassword />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/match/view/:id" element={<ViewMatch />} />
-          <Route path="/notifications" element={<Notifications />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/terms_and_conditions" element={<TermsAndConditions />} />
-          <Route path="/privacy_policy" element={<PrivacyPolicy />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/phone_opt" element={<PhoneOTP />} />
-          <Route path="/phone_update" element={<PhoneUpdate />} />
-          <Route path="/password_update" element={<PasswordUpdate />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="*" element={<NotFound />} />
+    <TooltipProvider>
+      <Toaster />
+      <Sonner position="top-left" />
+      <BrowserRouter basename="/">
+        <Routes>
+          {/* Public (no token required) */}
+          <Route element={<GuestOnly />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/verify" element={<Verify />} />
+            <Route path="/forget-password" element={<LoginWrapper />} />
+            {/* <Route path="/reset-password" element={<ResetPassword />} /> */}
+          </Route>
+
+          {/* Everything else is protected */}
+          <Route element={<RequireAuth />}>
+            <Route path="/" element={<Index />} />
+            <Route path="/playgrounds" element={<PlayGrounds />} />
+            <Route path="/playground/edit/:id" element={<AddPlayGround />} />
+            <Route path="/match/edit/:id" element={<AddMatch />} />
+            <Route path="/match/add" element={<AddMatch />} />
+            <Route path="/playground/matches/:id" element={<GroundMatches />} />
+            <Route path="/playground/add" element={<AddPlayGround />} />
+            <Route path="/reports" element={<Reports />} />
+            <Route path="/match/view/:id" element={<ViewMatch />} />
+            <Route path="/notifications" element={<Notifications />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/terms_and_conditions" element={<TermsAndConditions />} />
+            <Route path="/privacy_policy" element={<PrivacyPolicy />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/phone_opt" element={<PhoneOTP />} />
+            <Route path="/phone_update" element={<PhoneUpdate />} />
+            <Route path="/password_update" element={<PasswordUpdate />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
-</QueryClientProvider>
+  </QueryClientProvider>
 );
+
 
 export default App;

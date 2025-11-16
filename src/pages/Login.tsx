@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import backgroundImg from "@/assets/registrationbg.svg";
 import loginimg from "@/assets/loginimg.svg";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -8,15 +8,31 @@ import { Form, FormField, FormItem, FormControl, FormMessage, FormLabel, } from 
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { userLogin } from "@/components/requests/userLogin";
+import { toast } from "sonner";
 const FormSchema = z.object({
   username: z.string().min(3, "الحد الأدنى 3 أحرف").nonempty("هذا الحقل مطلوب"),
   password: z.string().min(6, "الحد الأدنى 6 أحرف").nonempty("هذا الحقل مطلوب"),
 });
 
-const Login = () => {
+const Login = ({ setStep, setFormData }) => {
+  const token = localStorage.getItem("token");
+  useEffect(() => {
+    if (token) {
+      toast("تم تسجيل الدخول بالفعل ", {
+        style: {
+          borderColor: '#dc3545',
+          boxShadow: '0px 0px 10px rgba(220, 53, 69, .5)',
+        },
+      });
+      navigate("/");
+    }
+  }, [token]);
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -27,7 +43,7 @@ const Login = () => {
   });
 
   const onSubmit = (values: z.infer<typeof FormSchema>) => {
-    // handle submit
+    userLogin({ data: values, setLoading, navigate })
     console.log(values);
   };
 

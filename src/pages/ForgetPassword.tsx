@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import backgroundImg from "@/assets/registrationbg.svg";
 import loginimg from "@/assets/loginimg.svg";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -16,6 +16,8 @@ import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { userForgetPasswordSendCode } from "@/components/requests/userForgetPasswordSendCode";
 
 const FormSchema = z.object({
   phone: z
@@ -24,7 +26,8 @@ const FormSchema = z.object({
     .regex(/^\+?\d{9,15}$/, "الرجاء إدخال رقم جوال صالح"),
 });
 
-const ForgetPassword = () => {
+const ForgetPassword = ({ setStep, setFormData }) => {
+  const [loading, setLoading] = useState(false)
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -36,6 +39,7 @@ const ForgetPassword = () => {
   const onSubmit = (values: z.infer<typeof FormSchema>) => {
     // TODO: integrate with your API
     console.log(values);
+    userForgetPasswordSendCode({ data: values, setLoading, setStep, setFormData });
   };
 
   return (
@@ -93,6 +97,7 @@ const ForgetPassword = () => {
                 <Button
                   type="submit"
                   className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold rounded-full py-6"
+                  disabled={loading}
                 >
                   ارسال
                 </Button>

@@ -5,8 +5,12 @@ import { useState } from "react";
 import DisplayProfile from "../components/profile/DisplayProfile";
 import EditProfile from "../components/profile/EditProfile";
 import { motion } from "framer-motion";
+import { useGetProfileData } from "../components/hooks/useGetProfileData";
+import Loading from "../components/Loading";
 const Profile = () => {
     const [mode, setMode] = useState("display");
+    const { data, isLoading } = useGetProfileData();
+    console.log(data);
     return (
         <div className="flex min-h-screen p-6 gap-8 max-w-[100vw]">
             <SideBar />
@@ -23,10 +27,12 @@ const Profile = () => {
                         <button className={`${mode === "display" ? "bg-primary text-white" : "text-[#00000099]"} text-xl font-medium rounded-full h-full px-10`} onClick={() => setMode("display")}>الملف الشخصي</button>
                         <button className={`${mode === "edit" ? "bg-primary text-white" : "text-[#00000099]"} text-xl font-medium rounded-full h-full px-10`} onClick={() => setMode("edit")}>تعديل الملف الشخصي</button>
                     </motion.div>
-                    {mode === "display" ?
-                        <DisplayProfile />
-                        :
-                        <EditProfile />
+                    {
+                        isLoading ? <Loading /> :
+                            mode === "display" ?
+                                <DisplayProfile data={data} />
+                                :
+                                <EditProfile data={data} />
                     }
                 </div>
             </main >

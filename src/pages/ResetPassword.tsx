@@ -16,6 +16,8 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { resetPassword } from "@/components/requests/resetPassword";
+import { useNavigate } from "react-router-dom";
 
 const FormSchema = z
   .object({
@@ -27,9 +29,11 @@ const FormSchema = z
     path: ["rePassword"],
   });
 
-const ResetPassword = () => {
+const ResetPassword = ({ formData }) => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showRePassword, setShowRePassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -42,6 +46,7 @@ const ResetPassword = () => {
 
   const onSubmit = (values: z.infer<typeof FormSchema>) => {
     // TODO: integrate with your API
+    resetPassword({ data: values, phone: formData.phone, setLoading, navigate });
     console.log("reset password:", values);
   };
 
@@ -195,13 +200,13 @@ const ResetPassword = () => {
           </div>
         </motion.div>
 
-         <motion.div
+        <motion.div
           initial={{ opacity: 0, x: 20 }}
           whileInView={{ opacity: 1, x: 0 }}
           //make delay here
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.5 }}
-           className="w-full h-full min-h-[100vh] relative hidden md:block">
+          className="w-full h-full min-h-[100vh] relative hidden md:block">
           <LazyLoadImage src={backgroundImg} alt="Haddaf" className="h-full w-full min-h-[100vh]" />
           <div className="absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center">
             <LazyLoadImage src={loginimg} alt="Haddaf" className="h-full w-full max-w-[430px] object-contain animatioed-img" />
