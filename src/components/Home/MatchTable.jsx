@@ -53,7 +53,10 @@ const MatchTable = ({ data }) => {
           </table>
         </div>
       </div>
-      <Pagination total={2} current={page} onChange={(p) => setPage(p)} />
+    {
+       data?.pagination?.total_pages > 1 &&
+          <Pagination total={data?.pagination?.total_pages} current={page} onChange={(p) => setPage(p)} />
+      }
     </motion.div>
   );
 };

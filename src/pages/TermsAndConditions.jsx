@@ -10,7 +10,7 @@ const TermsAndConditions = () => {
       <SideBar />
       <main className="md:w-calc100-340px w-full">
         <PageTitl title="الشروط والأحكام" icon={terms} />
-        <FixedPagesCont title="الشروط والأحكام" icon={terms} description="مرحبًا بك في هدّاف، التطبيق الأول لحجز الملاعب والمباريات بسهولة وسرعة داخل المملكة العربية السعودية. "/>
+         <FixedPagesCont title={"الشروط والأحكام"} keyWord="terms/providers-terms" icon={terms}/>
       </main>
     </div>
   );

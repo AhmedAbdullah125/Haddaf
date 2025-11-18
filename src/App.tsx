@@ -19,11 +19,13 @@ import PasswordUpdate from "@/pages/PasswordUpdate";
 import About from "@/pages/About";
 import TermsAndConditions from "@/pages/TermsAndConditions";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
-import PhoneUpdate from "@/pages/PhoneUpdate";
+import PhoneUpdateWrapper from "@/pages/PhoneUpdateWrapper";
 import PhoneOTP from "@/pages/PhoneOTP";
 import Profile from "@/pages/Profile";
 import LoginWrapper from "@/pages/LoginWrapper";
 import Login from "@/pages/Login";
+import EditPlayGround from "@/pages/EditPlayGround";
+import EditMatch from "@/pages/EditMatch";
 const queryClient = new QueryClient();
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
@@ -61,14 +63,14 @@ const App = () => (
             <Route path="/forget-password" element={<LoginWrapper />} />
             {/* <Route path="/reset-password" element={<ResetPassword />} /> */}
           </Route>
-
+          
           {/* Everything else is protected */}
           <Route element={<RequireAuth />}>
             <Route path="/" element={<Index />} />
             <Route path="/playgrounds" element={<PlayGrounds />} />
-            <Route path="/playground/edit/:id" element={<AddPlayGround />} />
-            <Route path="/match/edit/:id" element={<AddMatch />} />
-            <Route path="/match/add" element={<AddMatch />} />
+            <Route path="/playground/edit/:id" element={<EditPlayGround />} />
+            <Route path="/match/edit/:id" element={<EditMatch />} />
+            <Route path="/match/add/:id" element={<AddMatch />} />
             <Route path="/playground/matches/:id" element={<GroundMatches />} />
             <Route path="/playground/add" element={<AddPlayGround />} />
             <Route path="/reports" element={<Reports />} />
@@ -79,8 +81,8 @@ const App = () => (
             <Route path="/terms_and_conditions" element={<TermsAndConditions />} />
             <Route path="/privacy_policy" element={<PrivacyPolicy />} />
             <Route path="/settings" element={<Settings />} />
-            <Route path="/phone_opt" element={<PhoneOTP />} />
-            <Route path="/phone_update" element={<PhoneUpdate />} />
+            <Route path="/phone_otp" element={<PhoneOTP />} />
+            <Route path="/phone_update" element={<PhoneUpdateWrapper />} />
             <Route path="/password_update" element={<PasswordUpdate />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<NotFound />} />

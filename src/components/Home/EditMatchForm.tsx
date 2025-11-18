@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -7,13 +7,14 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
-import { addMatch } from "../requests/addMatch";
+import { editMatch } from "../requests/editMatch";
 import { useNavigate, useParams } from "react-router-dom";
 import Loading from '../../components/Loading'
+import { useGetSingleMatchData } from "../hooks/useGetSingleMatchDetails";
 
 const hours = Array.from({ length: 12 }, (_, i) => String(i + 1));
 
-const minutes = ["00", "15", "30", "45"];
+const minutes = ["00", "30"];
 const ampmOptions = ["AM", "PM"];
 
 const FormSchema = z.object({
@@ -26,23 +27,37 @@ const FormSchema = z.object({
   date: z.date({ required_error: "مطلوب" }),
 });
 
-const AddMatchForm = () => {
+const EditMatchForm = () => {
   const { id } = useParams();
+  const { data: match, isLoading } = useGetSingleMatchData(id);
+  console.log(match);
+
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false)
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      slotCost: "",
-      players: "",
-      duration: "",
-      hour: "",
-      minute: "",
-      ampm: "PM",
-      date: new Date(),
+      slotCost: String(match?.price) || "",
+      players: String(match?.players_count) || "",
+      duration: String(match?.duration) || "",
+      hour: String(new Date(match?.start_time).getHours() || ""),
+      minute: String(new Date(match?.start_time).getMinutes() || ""),
+      ampm: String(new Date(match?.start_time).getHours() >= 12 ? "PM" : "AM") || "PM",
+      date: new Date(match?.start_date || new Date()),
     },
     mode: "onChange",
   });
+  useEffect(() => {
+    if (match) {
+      form.setValue("slotCost", String(match?.price));
+      form.setValue("players", String(match?.players_count));
+      form.setValue("duration", String(match?.duration));
+      form.setValue("hour", String(new Date(match?.start_time).getHours() || ""));
+      form.setValue("minute", String(new Date(match?.start_time).getMinutes() || ""));
+      form.setValue("ampm", String(new Date(match?.start_time).getHours() >= 12 ? "PM" : "AM") || "PM");
+      form.setValue("date", new Date(match?.start_date || new Date()));
+    }
+  }, [match]);
   const formatDateTime = (data: z.infer<typeof FormSchema>) => {
     const { date, hour, minute, ampm } = data;
 
@@ -79,12 +94,12 @@ const AddMatchForm = () => {
     };
 
     console.log("payload: ", payload);
-    addMatch(id, payload, setLoading, navigate)
+    editMatch(id, payload, setLoading, navigate)
   };
   return (
     <div dir="rtl" className="w-full">
       {
-        loading ? <Loading /> :
+        loading || isLoading ? <Loading /> :
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-[640px]">
               <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-[0_4px_10px_0_rgba(46,173,0,0.12)] max-w-[640px]">
@@ -250,4 +265,4 @@ const AddMatchForm = () => {
   );
 };
 
-export default AddMatchForm;
+export default EditMatchForm;

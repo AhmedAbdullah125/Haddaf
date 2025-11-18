@@ -70,10 +70,10 @@ const [page, setPage] = useState(1);
             <tbody>
               {data.rows.map((row) => (
                 <tr key={row.id} className="border-t border-gray-100">
-                  <td className="px-6 py-4 text-777 text-nowrap text-lg font-medium">{row.id}</td>
-                  <td className="px-6 py-4 text-777 text-nowrap text-lg font-medium">{row.stadium}</td>
-                  <td className="px-6 py-4 text-777 text-nowrap text-lg font-medium">{row.reservations}</td>
-                  <td className="px-6 py-4 text-777 text-nowrap text-lg font-medium">{row.location}</td>
+                  <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.id}</td>
+                  <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.stadium}</td>
+                  <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.reservations}</td>
+                  <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.location}</td>
                   <td className="px-6 py-4">
                     <Link to={`/playground/matches/${row.id}`} className="text-gray-600 hover:text-gray-700" aria-label="عرض التفاصيل"><IconEye /></Link>
                   </td>

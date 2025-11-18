@@ -6,7 +6,8 @@ import { ImCancelCircle } from "react-icons/im";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Pagination from "../Global/Pagination";
-const HomeTable = () => {
+const HomeTable = ({ data, isLoading }) => {
+  console.log(data);
 
   const rows = Array.from({ length: 5 }).map((_, i) => ({
     id: i + 1,
@@ -18,56 +19,53 @@ const HomeTable = () => {
     remaining: "16 دقيقة",
     slotCost: "30 ريال",
   }));
-  const data = {
-    headers: [
-      {
-        name: "رقم",
-        key: "id",
-        id: 1
-      },
-      {
-        name: "اسم الملعب",
-        key: "stadium",
-        id: 2
-      },
-      {
-        name: "عدد اللاعبين",
-        key: "players",
-        id: 3
-      },
-      {
-        name: "مدة المباراة",
-        key: "duration",
-        id: 4
-      },
-      {
-        name: "موعد المباراة",
-        key: "date",
-        id: 5
-      },
-      {
-        name: "الساعة",
-        key: "time",
-        id: 6
-      },
-      {
-        name: "الوقت المتبقي لأقرب مباراة",
-        key: "remaining",
-        id: 7
-      },
-      {
-        name: "التكلفة",
-        key: "slotCost",
-        id: 8
-      },
-      {
-        name: "الإجراءات",
-        key: "actions",
-        id: 9
-      },
-    ],
-    rows: rows
-  }
+  const headers = [
+    {
+      name: "رقم",
+      key: "id",
+      id: 1
+    },
+    {
+      name: "اسم الملعب",
+      key: "stadium",
+      id: 2
+    },
+    {
+      name: "عدد اللاعبين",
+      key: "players",
+      id: 3
+    },
+    {
+      name: "مدة المباراة",
+      key: "duration",
+      id: 4
+    },
+    {
+      name: "موعد المباراة",
+      key: "date",
+      id: 5
+    },
+    {
+      name: "الساعة",
+      key: "time",
+      id: 6
+    },
+    {
+      name: "الوقت المتبقي لأقرب مباراة",
+      key: "remaining",
+      id: 7
+    },
+    {
+      name: "التكلفة",
+      key: "slotCost",
+      id: 8
+    },
+    {
+      name: "الإجراءات",
+      key: "actions",
+      id: 9
+    },
+  ]
   const IconTrash = ({ className = "w-5 h-5" }) => (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className}><path d="M9 3h6v2h5v2H4V5h5V3Zm1 6h2v10h-2V9Zm4 0h2v10h-2V9ZM6 9h2v10H6V9Z" /></svg>
   );
@@ -103,23 +101,23 @@ const HomeTable = () => {
             <thead className="w-full">
               <tr className="text-gray-600">
                 {
-                  data.headers.map((header) => (
+                  headers.map((header) => (
                     <th key={header.id} className="px-6 py-4 font-semibold whitespace-nowrap text-lg">{header.name}</th>
                   ))
                 }
               </tr>
             </thead>
             <tbody>
-              {data.rows.map((row, idx) => (
+              {data.latest_games.map((row, idx) => (
                 <tr key={row.id} className="border-t border-gray-100">
-                  <td className="px-6 py-4 text-777 text-nowrap text-lg font-medium">{row.id}</td>
-                  <td className="px-6 py-4 text-777 text-nowrap text-lg font-medium">{row.stadium}</td>
-                  <td className="px-6 py-4 text-777 text-nowrap text-lg font-medium">{row.players}</td>
-                  <td className="px-6 py-4 text-777 text-nowrap text-lg font-medium">{row.duration}</td>
-                  <td className="px-6 py-4 text-777 text-nowrap text-lg font-medium">{row.date}</td>
-                  <td className="px-6 py-4 text-777 text-nowrap text-lg font-medium">{row.time}</td>
-                  <td className="px-6 py-4 text-777 text-nowrap text-lg font-medium">{row.remaining}</td>
-                  <td className="px-6 py-4 text-777 text-nowrap text-lg font-medium">{row.slotCost}</td>
+                  <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.id}</td>
+                  <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.stadium_name}</td>
+                  <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.players_count}</td>
+                  <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.duration}</td>
+                  <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.start_date}</td>
+                  <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.start_time_formatted}</td>
+                  <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.time_remaining_formatted}</td>
+                  <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.price}</td>
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-4">
                       <Link to={`/match/view/${row.id}`} className="text-gray-600 hover:text-gray-700" aria-label="view"><IconEye /></Link>
@@ -161,7 +159,11 @@ const HomeTable = () => {
           </table>
         </div>
       </div>
-      <Pagination total={2} current={page} onChange={(p) => setPage(p)} />
+
+      {
+        isLoading ? null : data?.pagination?.total_pages > 1 &&
+          <Pagination total={data?.pagination?.total_pages} current={page} onChange={(p) => setPage(p)} />
+      }
     </motion.div>
   );
 };

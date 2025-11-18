@@ -7,7 +7,8 @@ import { useForm } from "react-hook-form";
 import { Form, FormField, FormItem, FormControl, FormMessage, FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
+import { changPassword } from "@/components/requests/changPassword";
+import { useNavigate } from "react-router-dom";
 
 const FormSchema = z.object({
     password: z.string().min(3, "الحد الأدنى 3 أحرف").nonempty("هذا الحقل مطلوب"),
@@ -15,7 +16,8 @@ const FormSchema = z.object({
     re_password: z.string().min(3, "الحد الأدنى 3 أحرف").nonempty("هذا الحقل مطلوب"),
 });
 const PasswordUpdateForm = ({ title, icon }) => {
-
+    const[loading,setLoading]=useState(false)
+    const navigate=useNavigate()
     const [showPassword, setShowPassword] = useState(false);
 
     const form = useForm({
@@ -25,7 +27,7 @@ const PasswordUpdateForm = ({ title, icon }) => {
     });
 
     const onSubmit = (values: z.infer<typeof FormSchema>) => {
-        
+        changPassword({ data: values, setLoading, navigate });
         console.log(values);
     };
 

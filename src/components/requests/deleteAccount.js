@@ -3,25 +3,40 @@ import axios from "axios";
 import { API_BASE_URL } from "@/lib/apiConfig";
 import { toast } from "sonner";
 
-export async function updateProfile({ data }) {
-  const token = localStorage.getItem("token");
-  const formData = new FormData();
-  console.log(data);
+export async function deleteAccount(setLoading, navigate) {
+  const generateDeviceId = () => {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let deviceId = '';
+    for (let i = 0; i < 20; i++) {
+      deviceId += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return deviceId;
+  };
+  const getDeviceId = () => {
+    let deviceId = localStorage.getItem('device_id');
+    if (!deviceId) {
+      deviceId = generateDeviceId();
+      localStorage.setItem('device_id', deviceId);
+    }
+    return deviceId;
+  };
 
-  formData.append('name', data.fullName);
-  if (data.avatar) {
-    formData.append('image', data.avatar);
-  }
-  formData.append('identity_number', data.nationalId);
-  const headers = { "accept-language": "ar" };
+
+
+  const token = localStorage.getItem("token");
+  const lang = localStorage.getItem("lang") || "ar";
+  const formData = new FormData();
+  formData.append('device_id', getDeviceId());
+  const headers = { "accept-language": lang };
 
   if (token) headers.Authorization = `Bearer ${token}`;
 
-  const url = `${API_BASE_URL}/provider/profile/update?_method=PATCH`;
+  const url = `${API_BASE_URL}/provider/delete-account`;
 
   try {
+    setLoading(true);
     const response = await axios.post(url, formData, { headers });
-    const message = response?.data?.msg || "تم تحديث الملف الشخصي بنجاح";
+    const message = response?.data?.msg || "تم حذف الحساب بنجاح";
     console.log(response);
 
     if (response.data.key === "success") {
@@ -31,6 +46,9 @@ export async function updateProfile({ data }) {
           boxShadow: "0px 0px 10px rgba(40, 167, 69, .5)",
         },
       });
+      setLoading(false);
+      localStorage.removeItem("token");
+      navigate("/login");
     } else {
       toast(response?.data?.msg, {
         style: {
@@ -39,6 +57,7 @@ export async function updateProfile({ data }) {
         },
         description: "استجابة غير متوقعة",
       });
+      setLoading(false);
     }
   } catch (error) {
     const errorMessage = error?.response?.data?.msg || error?.msg;
@@ -48,5 +67,6 @@ export async function updateProfile({ data }) {
         boxShadow: "0px 0px 10px rgba(220, 53, 69, .5)",
       },
     });
+    setLoading(false);
   }
 }

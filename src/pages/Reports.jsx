@@ -2,14 +2,16 @@ import SideBar from "../components/Home/SideBar";
 import reports from "../assets/reports.svg";
 import { useState } from "react";
 import HomeTabs from "../components/Home/HomeTabs";
-import ReportsStadumsTable from "../components/Home/ReportsStadumsTable";
 import PageTitl from "../components/Global/PageTitle";
 import playground from "../assets/playground.svg";
 import manWithBall from "../assets/manWithBall.svg";
-import ReportsMatchesTable from "../components/Home/ReportsMatchesTable";
+import HomeTable from "../components/Home/HomeTable";
+import { useGetHomeData } from "../components/hooks/useGetHomeData";
+import MatchesDisplay from "../components/Home/MatchesDisplay";
+
 
 const Reports = () => {
-
+const { data, isLoading } = useGetHomeData();
     const [activeTab, setActiveTab] = useState(1);
     const tabs = [
         {
@@ -31,11 +33,11 @@ const Reports = () => {
             <SideBar />
             <main className="w-calc100-340px">
                 <PageTitl title="التقارير" icon={reports} />
-                <HomeTabs activeTab={activeTab} setActiveTab={setActiveTab} tabs={tabs} />
+                <HomeTabs activeTab={activeTab} setActiveTab={setActiveTab} tabs={tabs} data={data} isLoading={isLoading} />
                 {
                     activeTab === 1 ?
-                        <ReportsStadumsTable />
-                        : activeTab === 2 ? <ReportsMatchesTable /> : ""
+                        <MatchesDisplay title="تفاصيل الملاعب" />
+                         : activeTab === 2 ? isLoading ? <Loading /> : <HomeTable data={data} isLoading={isLoading} /> : ""
                 }
             </main>
         </div>

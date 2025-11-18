@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 import { GoPlus } from "react-icons/go";
 import { motion } from "framer-motion";
 const PlayGrounds = () => {
-    const [activeTab, setActiveTab] = useState(1);
     return (
         <div className="flex min-h-screen p-6 gap-8 max-w-[100vw]">
             <SideBar />
@@ -31,7 +30,7 @@ const PlayGrounds = () => {
                         اضافة ملعب
                     </Link>
                 </motion.div>
-                <MatchesDisplay />
+                <MatchesDisplay title="الملاعب" />
             </main>
         </div>
     );

@@ -3,35 +3,35 @@ import axios from "axios";
 import { API_BASE_URL } from "@/lib/apiConfig";
 import { toast } from "sonner";
 
-export async function updateProfile({ data }) {
+export async function changPassword({ data, setLoading, navigate }) {
   const token = localStorage.getItem("token");
   const formData = new FormData();
-  console.log(data);
-
-  formData.append('name', data.fullName);
-  if (data.avatar) {
-    formData.append('image', data.avatar);
-  }
-  formData.append('identity_number', data.nationalId);
+  formData.append('current_password', data.password);
+  formData.append('password', data.new_password);
+  formData.append('password_confirmation', data.re_password);
   const headers = { "accept-language": "ar" };
-
   if (token) headers.Authorization = `Bearer ${token}`;
 
-  const url = `${API_BASE_URL}/provider/profile/update?_method=PATCH`;
+  const url = `${API_BASE_URL}/provider/change-password`;
 
   try {
+    setLoading(true);
     const response = await axios.post(url, formData, { headers });
     const message = response?.data?.msg || "تم تحديث الملف الشخصي بنجاح";
     console.log(response);
 
     if (response.data.key === "success") {
+      setLoading(false);
       toast(message, {
         style: {
           borderColor: "#28a745",
           boxShadow: "0px 0px 10px rgba(40, 167, 69, .5)",
         },
       });
+      //after 2 seconds reload the page
+     navigate("/profile")
     } else {
+      setLoading(false);
       toast(response?.data?.msg, {
         style: {
           borderColor: "#dc3545",
@@ -41,6 +41,7 @@ export async function updateProfile({ data }) {
       });
     }
   } catch (error) {
+    setLoading(false);
     const errorMessage = error?.response?.data?.msg || error?.msg;
     toast(errorMessage, {
       style: {

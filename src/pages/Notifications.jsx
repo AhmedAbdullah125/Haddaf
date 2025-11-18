@@ -11,7 +11,6 @@ const Notifications = () => {
       <SideBar />
       <main className="w-calc100-340px">
         <PageTitl title="الاشعارات" icon={notification} />
-       
       <NotificationsGrid/>
       </main>
     </div>
