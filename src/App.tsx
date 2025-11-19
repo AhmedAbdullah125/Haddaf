@@ -8,6 +8,7 @@ import NotFound from "@/pages/NotFound";
 import Verify from "@/pages/Verify";
 import PlayGrounds from "@/pages/PlayGrounds";
 import GroundMatches from "@/pages/GroundMatches";
+import GroundMatchesDetails from "@/pages/GroundMatchesDetails";
 import AddMatch from "@/pages/AddMatch";
 import AddPlayGround from "@/pages/AddPlayGround";
 import Reports from "@/pages/Reports";
@@ -63,7 +64,6 @@ const App = () => (
             <Route path="/forget-password" element={<LoginWrapper />} />
             {/* <Route path="/reset-password" element={<ResetPassword />} /> */}
           </Route>
-          
           {/* Everything else is protected */}
           <Route element={<RequireAuth />}>
             <Route path="/" element={<Index />} />
@@ -72,6 +72,7 @@ const App = () => (
             <Route path="/match/edit/:id" element={<EditMatch />} />
             <Route path="/match/add/:id" element={<AddMatch />} />
             <Route path="/playground/matches/:id" element={<GroundMatches />} />
+            <Route path="/playground/matches_details/:id" element={<GroundMatchesDetails />} />
             <Route path="/playground/add" element={<AddPlayGround />} />
             <Route path="/reports" element={<Reports />} />
             <Route path="/match/view/:id" element={<ViewMatch />} />

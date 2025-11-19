@@ -61,7 +61,7 @@ const EditPlayGroundForm = () => {
         isLoading || loading ? <Loading /> :
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="w-full  max-w-[640px]">
-              <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-[0_4px_10px_0_rgba(46,173,0,0.12)] max-w-[640px]">
+              <div className="rounded-3xl border border-gray-200 bg-white p-4 md:p-6 shadow-[0_4px_10px_0_rgba(46,173,0,0.12)] max-w-[640px]">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <FormField
                     control={form.control}
@@ -97,7 +97,7 @@ const EditPlayGroundForm = () => {
                       </FormItem>
                     )}
                   />
-                  <div className="col-span-2" >
+                  <div className="md:col-span-2 col-span-1" >
 
                     <FormField
                       control={form.control}
@@ -117,7 +117,7 @@ const EditPlayGroundForm = () => {
                       )}
                     />
                   </div>
-                  <div className="col-span-2" >
+                  <div className="md:col-span-2 col-span-1" >
                     <FormField
                       control={form.control}
                       name="location"
@@ -138,10 +138,10 @@ const EditPlayGroundForm = () => {
                                       </svg>
                                     </span>
                                     <div className="flex-1 text-right">
-                                      <div className="text-base md:text-lg font-semibold text-gray-900">
+                                      <div className="text-sm md:text-lg font-semibold text-gray-900">
                                         اختر الموقع على الخريطة
                                       </div>
-                                      <div className="text-sm text-gray-500">
+                                      <div className="text-xs md:text-sm text-gray-500">
                                         اضغط لفتح الخريطة وتحديد الموقع
                                       </div>
                                     </div>

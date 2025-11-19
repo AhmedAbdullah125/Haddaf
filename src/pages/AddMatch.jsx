@@ -16,9 +16,9 @@ const AddMatch = () => {
                     //make delay here
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: 0.5 }} className="flex items-center justify-between mb-8 flex-wrap gap-2">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 mb-8">
                         <LazyLoadImage src={greenGound} alt="Haddaf" className="w-6 h-auto object-contain" />
-                        <h3 className="text-xl md:text-2xl font-semibold">اضافة مبارة جديدة</h3>
+                        <h3 className="text-xl md:text-2xl font-semibold ">اضافة مبارة جديدة</h3>
                     </div>
                     <AddMatchForm />
                 </motion.div>

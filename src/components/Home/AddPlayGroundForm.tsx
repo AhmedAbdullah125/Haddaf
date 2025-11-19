@@ -77,7 +77,7 @@ const AddPlayGroundForm = () => {
                   </FormItem>
                 )}
               />
-              <div className="col-span-2" >
+              <div className="md:col-span-2 col-span-1" >
 
                 <FormField
                   control={form.control}
@@ -97,7 +97,7 @@ const AddPlayGroundForm = () => {
                   )}
                 />
               </div>
-              <div className="col-span-2" >
+              <div className="md:col-span-2 col-span-1" >
                 <FormField
                   control={form.control}
                   name="location"
@@ -118,10 +118,10 @@ const AddPlayGroundForm = () => {
                                   </svg>
                                 </span>
                                 <div className="flex-1 text-right">
-                                  <div className="text-base md:text-lg font-semibold text-gray-900">
+                                  <div className="text-sm md:text-lg font-semibold text-gray-900">
                                     اختر الموقع على الخريطة
                                   </div>
-                                  <div className="text-sm text-gray-500">
+                                  <div className="text-xs md:text-sm text-gray-500">
                                     اضغط لفتح الخريطة وتحديد الموقع
                                   </div>
                                 </div>
@@ -173,7 +173,7 @@ const AddPlayGroundForm = () => {
 
             <div className="mt-6">
               <Button type="submit" className="w-full h-12 rounded-full bg-primary text-white text-lg font-bold hover:opacity-95">
-                حفظ
+                اضافة
               </Button>
             </div>
           </div>

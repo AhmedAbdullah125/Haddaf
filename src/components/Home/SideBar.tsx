@@ -22,12 +22,14 @@ import notificationGray from "../../../src/assets/notificationGray.svg";
 import notificationWhite from "../../../src/assets/notificationWhite.svg";
 import { userLogout } from "@/components/requests/userLogout";
 import { useNavigate } from "react-router-dom";
+import { useGetProfileData } from "@/components/hooks/useGetProfileData";
 const SideBar = () => {
+  const { data, isLoading } = useGetProfileData();
   const [open, setOpen] = useState(true)
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const handleLogout = () => {
-    userLogout({navigate});
+    userLogout({ navigate });
   }
   return (
     <aside
@@ -124,7 +126,7 @@ const SideBar = () => {
               <AlertDialogFooter className="w-full flex gap-4">
                 <AlertDialogCancel className="hidden" id="cancel">إلغاء</AlertDialogCancel>
                 <AlertDialogAction className="text-white bg-D10000 w-full h-12 rounded-3xl text-center"
-                onClick={() => { handleLogout()}}
+                  onClick={() => { handleLogout() }}
                 >تأكيد الخروج </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>

@@ -21,8 +21,8 @@ import { useNavigate } from "react-router-dom";
 
 const FormSchema = z
   .object({
-    password: z.string().min(6, "الحد الأدنى 6 أحرف").nonempty("هذا الحقل مطلوب"),
-    rePassword: z.string().min(6, "الحد الأدنى 6 أحرف").nonempty("هذا الحقل مطلوب"),
+    password: z.string().min(6, "الحد الأدنى 6 أحرف وارقام").nonempty("هذا الحقل مطلوب"),
+    rePassword: z.string().min(6, "الحد الأدنى 6 أحرف وارقام").nonempty("هذا الحقل مطلوب"),
   })
   .refine((vals) => vals.password === vals.rePassword, {
     message: "كلمتا المرور غير متطابقتين",

@@ -461,7 +461,18 @@ background-color: #E4FFEB;
   display: inline-block;
   z-index: 5;
 }
-
+.rdp-head_cell{
+  text-align: start;
+  padding-inline-start: 12px;
+}
+.rdp-caption{
+  padding-inline-end:50px;
+}
+@media screen and (max-width: 767px) {
+  .rdp-caption{
+    padding-inline-end:0px;
+  }
+}
 .text-4xl{
   font-size: 32px;
   line-height: 36px;

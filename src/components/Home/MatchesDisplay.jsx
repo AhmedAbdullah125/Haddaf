@@ -5,7 +5,7 @@ import Pagination from "../Global/Pagination";
 import greenGound from "../../assets/greenGound.svg";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useGetStadiumsData } from "../hooks/useGetStadiumsData";
 import Loading from "../Loading";
 import { deleteStadium } from "../requests/deleteStadium";
@@ -14,7 +14,9 @@ const MatchesDisplay = ({ title }) => {
   const [page, setPage] = useState(1)
   const { data: stadiums, isLoading: stadiumsLoading } = useGetStadiumsData({ page });
   console.log(stadiums);
-
+  const location = useLocation();
+  const currentPath = location.pathname;
+  console.log(currentPath);
   const headers = [
     {
       name: "رقم",
@@ -47,6 +49,56 @@ const MatchesDisplay = ({ title }) => {
       id: 5
     },
   ]
+  const headers3 = [
+    {
+      name: "رقم",
+      key: "id",
+      id: 1
+    },
+    {
+      name: "اسم الملعب",
+      key: "stadium",
+      id: 2
+    },
+    {
+      name: "حجوزات المبارة",
+      key: "reservation_count",
+      id: 4
+    },
+    {
+      name: "الموقع الجغرافي",
+      key: "location",
+      id: 3
+    },
+    {
+      name: "عرض تفاصيل",
+      key: "actions",
+      id: 5
+    },
+  ]
+  const headers2 = [
+    {
+      name: "رقم",
+      key: "id",
+      id: 1
+    },
+    {
+      name: "اسم الملعب",
+      key: "stadium",
+      id: 2
+    },
+    {
+      name: "الموقع الجغرافي",
+      key: "location",
+      id: 3
+    },
+    {
+      name: "الإجراءات",
+      key: "actions",
+      id: 5
+    },
+
+  ]
   const IconTrash = ({ className = "w-5 h-5" }) => (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className}><path d="M9 3h6v2h5v2H4V5h5V3Zm1 6h2v10h-2V9Zm4 0h2v10h-2V9ZM6 9h2v10H6V9Z" /></svg>
   );
@@ -68,74 +120,105 @@ const MatchesDisplay = ({ title }) => {
       transition={{ duration: 0.5, delay: 0.5 }}
       className="home-table mt-8" >
       {/* Container */}
-      <div className="flex items-center justify-between px-6 py-4">
-        <div className="flex items-center gap-2 text-green-700">
-          <LazyLoadImage src={greenGound} alt="Haddaf" className="w-7 h-auto object-contain" />
-          <h3 className="text-lg md:text-xl font-extrabold text-gray-900">{title}</h3>
-        </div>
-      </div>
-      <div className=" bg-white shadow-[0_4px_10px_0_rgba(46,173,0,0.25)] border-black/10 border rounded-3xl overflow-hidden">
+      {
+        stadiums?.stadiums?.length > 0 ?
+          <>
+            {
+              currentPath === "/playgrounds" ? null :
+                <div className="flex items-center justify-between px-6 py-4">
+                  <div className="flex items-center gap-2 text-green-700">
+                    <LazyLoadImage src={greenGound} alt="Haddaf" className="w-7 h-auto object-contain" />
+                    <h3 className="text-lg md:text-xl font-extrabold text-gray-900">{title}</h3>
+                  </div>
+                </div>
+            }
+            <div className=" bg-white shadow-[0_4px_10px_0_rgba(46,173,0,0.25)] border-black/10 border rounded-3xl overflow-hidden">
 
-        {/* Table */}
-        {
-          stadiumsLoading || loading ? <Loading /> :
-            <div className="overflow-x-auto overflow-auto w-full max-w-[calc(100vw-370px)] ">
-              <table className="min-w-full text-right overflow-auto w-full">
-                <thead className="w-full">
-                  <tr className="text-gray-600">
-                    {
-                      headers.map((header) => (
-                        <th key={header.id} className="px-6 py-4 font-semibold whitespace-nowrap text-lg">{header.name}</th>
-                      ))
-                    }
-                  </tr>
-                </thead>
-                <tbody>
-                  {stadiums.stadiums.map((row, idx) => (
-                    <tr key={row.id} className="border-t border-gray-100">
-                      <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.id}</td>
-                      <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.name_ar}</td>
-                      <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.games_count} مباراة</td>
-                      <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium"> {row.orders_count} حجز</td>
-                      <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.map_desc}</td>
-                      {/* <td className={`px-6 py-4 text-nowrap text-lg font-medium ${row.status === "active" ? "text-green-600" : "text-red-600"}`}>{row.status == "active" ? "نشط" : "غير نشط"}</td> */}
-                      <td className="px-6 py-4">
-                        <div className="flex items-end justify-end gap-4">
-                          <Link to={`/playground/matches/${row.id}`} className="text-gray-600 hover:text-gray-700" aria-label="view"><IconEye /></Link>
-                          <Link className="text-green-600 hover:text-green-700" to={`/playground/edit/${row.id}`} aria-label="edit"><IconEdit /></Link>
-                          <AlertDialog>
-                            <AlertDialogTrigger asChild>
-                              <button className="text-red-600 hover:text-red-700 " aria-label="delete"><IconTrash /></button>
-                            </AlertDialogTrigger>
-                            <AlertDialogContent className="max-w-md w-full px-8 py-11 flex flex-col gap-12 items-center">
-                              <div className="absolute top-2 end-5 w-10 h-10 rounded-full p-1 hover:bg-red-700 hover:text-white flexCenter"
-                                onClick={() => {
-                                  document.getElementById("cancel").click();
-                                }}
-                              ><ImCancelCircle size={28} /></div>
-                              <AlertDialogHeader>
-                                <AlertDialogTitle className="text-2xl font-semibold text-center">حذف الملعب </AlertDialogTitle>
-                              </AlertDialogHeader>
-                              <AlertDialogDescription className="font-medium text-xl text-center text-777">
+              {/* Table */}
+              {
+                stadiumsLoading || loading ? <Loading /> :
+                  <div className="overflow-x-auto overflow-auto w-full max-w-[calc(100vw-370px)] ">
+                    <table className="min-w-full text-right overflow-auto w-full">
+                      <thead className="w-full">
+                        <tr className="text-gray-600">
+                          {
+                            currentPath === "/playgrounds" ?
+                              headers2.map((header) => (
+                                <th key={header.id} className="px-6 py-4 font-semibold whitespace-nowrap text-lg">{header.name}</th>
+                              )) :
+                              currentPath === "/reports" ?
+                                headers3.map((header) => (
+                                  <th key={header.id} className="px-6 py-4 font-semibold whitespace-nowrap text-lg">{header.name}</th>
+                                )) :
+                                headers.map((header) => (
+                                  <th key={header.id} className="px-6 py-4 font-semibold whitespace-nowrap text-lg">{header.name}</th>
+                                ))
+                          }
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {stadiums.stadiums.map((row, idx) => (
+                          <tr key={row.id} className="border-t border-gray-100">
+                            <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.id}</td>
+                            <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.name_ar}</td>{
+                              currentPath === "/playgrounds" ? null :
+                                <>
+                                  {
+                                    currentPath === "/reports" ? null :
+                                      <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.games_count} مباراة</td>
+                                  }
+                                  <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium"> {row.orders_count} حجز</td>
+                                </>
+                            }
+                            <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.map_desc}</td>
+                            {/* <td className={`px-6 py-4 text-nowrap text-lg font-medium ${row.status === "active" ? "text-green-600" : "text-red-600"}`}>{row.status == "active" ? "نشط" : "غير نشط"}</td> */}
+                            <td className="px-6 py-4">
+                              <div className={`flex ${currentPath === "/reports" ? "items-center justify-center" : "items-end justify-end"} gap-4`}>
+                                <Link to={`/playground/${currentPath === "/reports" ? "matches_details" : "matches"}/${row.id}`} className="text-gray-600 hover:text-gray-700" aria-label="view"><IconEye /></Link>
                                 {
-                                  row.orders_count > 0 ? " لا يمكنك حذف الملعب لأنه نشط" : " سوف تقوم بحذف الملعب"
+                                  currentPath === "/reports" ? null :
+                                    <>
+                                      <Link className="text-green-600 hover:text-green-700" to={`/playground/edit/${row.id}`} aria-label="edit"><IconEdit /></Link>
+                                      <AlertDialog>
+                                        <AlertDialogTrigger asChild>
+                                          <button className="text-red-600 hover:text-red-700 " aria-label="delete"><IconTrash /></button>
+                                        </AlertDialogTrigger>
+                                        <AlertDialogContent className="max-w-md w-full px-8 py-11 flex flex-col gap-12 items-center">
+                                          <div className="absolute top-2 end-5 w-10 h-10 rounded-full p-1 hover:bg-red-700 hover:text-white flexCenter"
+                                            onClick={() => {
+                                              document.getElementById("cancel").click();
+                                            }}
+                                          ><ImCancelCircle size={28} /></div>
+                                          <AlertDialogHeader>
+                                            <AlertDialogTitle className="text-2xl font-semibold text-center">حذف الملعب </AlertDialogTitle>
+                                          </AlertDialogHeader>
+                                          <AlertDialogDescription className="font-medium text-xl text-center text-777">
+                                            {
+                                              row.orders_count > 0 ? " لا يمكنك حذف الملعب لأنه نشط" : " سوف تقوم بحذف الملعب"
+                                            }
+                                          </AlertDialogDescription>
+                                          <AlertDialogFooter className="w-full flex gap-4">
+                                            <AlertDialogCancel className="hidden" id="cancel">إلغاء</AlertDialogCancel>
+                                            <AlertDialogAction className="text-white bg-D10000 w-full h-12 rounded-3xl text-center" disabled={row.orders_count > 0} onClick={() => deleteStadium({ id: row.id, setLoading })}>حذف</AlertDialogAction>
+                                          </AlertDialogFooter>
+                                        </AlertDialogContent>
+                                      </AlertDialog>
+                                    </>
                                 }
-                              </AlertDialogDescription>
-                              <AlertDialogFooter className="w-full flex gap-4">
-                                <AlertDialogCancel className="hidden" id="cancel">إلغاء</AlertDialogCancel>
-                                <AlertDialogAction className="text-white bg-D10000 w-full h-12 rounded-3xl text-center" disabled={row.orders_count > 0} onClick={() => deleteStadium({ id: row.id, setLoading })}>حذف</AlertDialogAction>
-                              </AlertDialogFooter>
-                            </AlertDialogContent>
-                          </AlertDialog>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+
+              }
             </div>
-        }
-      </div>
+          </>
+          :
+          <span className="text-777 text-lg w-full flexCenter">لا يوجد ملاعب</span>
+      }
       {
         stadiums?.pagination?.total_pages > 1 &&
         <Pagination total={stadiums?.pagination?.total_pages} current={page} onChange={(p) => setPage(p)} />

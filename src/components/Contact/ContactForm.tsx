@@ -11,6 +11,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { contactUs } from "../requests/contactUs";
 import Loading from '../../components/Loading'
+import { useGetContactNumbers } from "../hooks/useGetContactNumbers";
 const FormSchema = z.object({
   message: z.string().min(3, "الحد الأدنى 3 أحرف").nonempty("هذا الحقل مطلوب"),
 });
@@ -21,6 +22,9 @@ const ContactForm = () => {
     defaultValues: { message: "" },
     mode: "onChange",
   });
+  const { data: contactNumbers, isLoading } = useGetContactNumbers();
+  console.log(contactNumbers);
+
   const [loading, setLoading] = useState(false);
   const onSubmit = (values: z.infer<typeof FormSchema>) => {
     contactUs(values, setLoading, form);
@@ -38,7 +42,20 @@ const ContactForm = () => {
         <LazyLoadImage src={contactIcon} alt="contact" className="w-8 h-8 object-contain" />
         <div className="flex flex-col h-full justify-center gap-2">
           <h3 className="text-lg md:text-xl font-bold text-gray-900">رقم تواصل مع الادارة</h3>
-          <Link to="tel:+966854289654" className="text-777 hover:text-primary/80">+966854289654</Link>
+          <div className="flex items-center gap-3">
+
+            {
+              isLoading ? null :
+                contactNumbers?.map((number, index) => (
+                  <>
+                    {
+                      contactNumbers?.length > 1 && index !== 0 && <span> - </span>
+                    }
+                    <Link to={`tel:${number}`} className="text-777 hover:text-primary/80" style={{direction:"ltr"}}>{number}</Link>
+                  </>
+                ))
+            }
+          </div>
         </div>
       </div>
       {

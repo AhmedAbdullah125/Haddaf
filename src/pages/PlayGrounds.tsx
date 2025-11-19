@@ -1,5 +1,4 @@
 import SideBar from "../components/Home/SideBar";
-import { useState } from "react";
 import PageTitl from "../components/Global/PageTitle";
 import greenGound from "../assets/greenGound.svg";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -8,13 +7,14 @@ import { Link } from "react-router-dom";
 import { GoPlus } from "react-icons/go";
 import { motion } from "framer-motion";
 const PlayGrounds = () => {
+    
     return (
         <div className="flex min-h-screen p-6 gap-8 max-w-[100vw]">
             <SideBar />
             <main className="w-calc100-340px">
                 <PageTitl title="ادارة الملاعب " icon={greenGound} />
                 <motion.div
-                      initial={{ opacity: 0, x: -20 }}
+                    initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     //make delay here
                     viewport={{ once: true }}

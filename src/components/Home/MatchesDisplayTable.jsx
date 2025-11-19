@@ -5,12 +5,27 @@ import Pagination from "../Global/Pagination";
 import { Link } from "react-router-dom";
 import Loading from "../Loading";
 import { deleteMatch } from "../requests/deleteMatch";
+import { useLocation } from "react-router-dom";
 const MatchesDisplayTable = ({ data, isLoading, page, setPage }) => {
     console.log(data);
     const [loading, setLoading] = useState(false);
+    const location = useLocation();
+    const currentPath = location.pathname;
+
+    console.log(currentPath.split("/")[1] == "playground" && currentPath.split("/")[2] == "matches");
     const headers = [
         { name: "رقم", key: "id", id: 1 },
         { name: "الملعب", key: "stadium", id: 2 },
+        { name: "عدد اللاعبين", key: "players", id: 3 },
+        { name: "مدة المباراة", key: "duration", id: 4 },
+        { name: "موعد المباراة", key: "date", id: 5 },
+        { name: "الساعة", key: "time", id: 6 },
+        { name: "الوقت المتبقي للمباراة", key: "remaining", id: 7 },
+        { name: "القطة للمباراة", key: "slotCost", id: 8 },
+        { name: "الاجراءات", key: "actions", id: 9 },
+    ]
+    const headers2 = [
+        { name: "رقم", key: "id", id: 1 },
         { name: "عدد اللاعبين", key: "players", id: 3 },
         { name: "مدة المباراة", key: "duration", id: 4 },
         { name: "موعد المباراة", key: "date", id: 5 },
@@ -43,9 +58,13 @@ const MatchesDisplayTable = ({ data, isLoading, page, setPage }) => {
                                 <thead className="w-full">
                                     <tr className="text-gray-600">
                                         {
-                                            headers.map((header) => (
-                                                <th key={header.id} className="px-6 py-4 font-semibold whitespace-nowrap text-lg">{header.name}</th>
-                                            ))
+                                            currentPath.split("/")[1] == "playground" && currentPath.split("/")[2] == "matches_details" ?
+                                                headers2.map((header) => (
+                                                    <th key={header.id} className="px-6 py-4 font-semibold whitespace-nowrap text-lg">{header.name}</th>
+                                                )) :
+                                                headers.map((header) => (
+                                                    <th key={header.id} className="px-6 py-4 font-semibold whitespace-nowrap text-lg">{header.name}</th>
+                                                ))
                                         }
                                     </tr>
                                 </thead>
@@ -53,7 +72,10 @@ const MatchesDisplayTable = ({ data, isLoading, page, setPage }) => {
                                     {data.games.map((row) => (
                                         <tr key={row.id} className="border-t border-gray-100">
                                             <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.id}</td>
-                                            <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.stadium_name}</td>
+                                            {
+                                                currentPath.split("/")[1] == "playground" && currentPath.split("/")[2] == "matches_details" ? null :
+                                                    < td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.stadium_name}</td>
+                                            }
                                             <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.players_count}</td>
                                             <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.duration}</td>
                                             <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.start_date}</td>
@@ -62,32 +84,38 @@ const MatchesDisplayTable = ({ data, isLoading, page, setPage }) => {
                                             <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.price}</td>
                                             <td className="px-6 py-4">
                                                 <div className="flex items-center gap-4">
+
                                                     <Link className=" hover:text-green-700" to={`/match/view/${row.id}`} aria-label="view"><IconEye /></Link>
-                                                    <Link className="text-green-600 hover:text-green-700" to={`/match/edit/${row.id}`} aria-label="edit"><IconEdit /></Link>
-                                                    <AlertDialog>
-                                                        <AlertDialogTrigger asChild>
-                                                            <button className="text-red-600 hover:text-red-700" aria-label="delete"><IconTrash /></button>
-                                                        </AlertDialogTrigger>
-                                                        <AlertDialogContent className="max-w-md w-full px-8 py-11 flex flex-col gap-12 items-center">
-                                                            <div className="absolute top-2 end-5 w-10 h-10 rounded-full p-1 hover:bg-red-700 hover:text-white flexCenter"
-                                                                onClick={() => {
-                                                                    document.getElementById("cancel").click();
-                                                                }}
-                                                            ><ImCancelCircle size={28} /></div>
-                                                            <AlertDialogHeader>
-                                                                <AlertDialogTitle className="text-2xl font-semibold text-center">حذف المبارة </AlertDialogTitle>
-                                                            </AlertDialogHeader>
-                                                            <AlertDialogDescription className="font-medium text-xl text-center text-777">
-                                                                {
-                                                                    row.time_remaining_minutes <= 60 ? " لا يمكنك حذف المباراة لأن المدة المتبقية اقل من ساعة" : "سوف تقوم بحذف المبارة"
-                                                                }
-                                                            </AlertDialogDescription>
-                                                            <AlertDialogFooter className="w-full flex gap-4">
-                                                                <AlertDialogCancel className="hidden" id="cancel">إلغاء</AlertDialogCancel>
-                                                                <AlertDialogAction className="text-white bg-D10000 w-full h-12 rounded-3xl text-center" disabled={row.time_remaining_minutes <= 60} onClick={() => deleteMatch({ id: row.id, setLoading })}>حذف</AlertDialogAction>
-                                                            </AlertDialogFooter>
-                                                        </AlertDialogContent>
-                                                    </AlertDialog>
+                                                    {
+                                                        currentPath.split("/")[1] == "playground" && currentPath.split("/")[2] == "matches_details" ? null : <>
+
+                                                            <Link className="text-green-600 hover:text-green-700" to={`/match/edit/${row.id}`} aria-label="edit"><IconEdit /></Link>
+                                                            <AlertDialog>
+                                                                <AlertDialogTrigger asChild>
+                                                                    <button className="text-red-600 hover:text-red-700" aria-label="delete"><IconTrash /></button>
+                                                                </AlertDialogTrigger>
+                                                                <AlertDialogContent className="max-w-md w-full px-8 py-11 flex flex-col gap-12 items-center">
+                                                                    <div className="absolute top-2 end-5 w-10 h-10 rounded-full p-1 hover:bg-red-700 hover:text-white flexCenter"
+                                                                        onClick={() => {
+                                                                            document.getElementById("cancel").click();
+                                                                        }}
+                                                                    ><ImCancelCircle size={28} /></div>
+                                                                    <AlertDialogHeader>
+                                                                        <AlertDialogTitle className="text-2xl font-semibold text-center">حذف المبارة </AlertDialogTitle>
+                                                                    </AlertDialogHeader>
+                                                                    <AlertDialogDescription className="font-medium text-xl text-center text-777">
+                                                                        {
+                                                                            row.time_remaining_minutes <= 60 ? " لا يمكنك حذف المباراة لأن المدة المتبقية اقل من ساعة" : "سوف تقوم بحذف المبارة"
+                                                                        }
+                                                                    </AlertDialogDescription>
+                                                                    <AlertDialogFooter className="w-full flex gap-4">
+                                                                        <AlertDialogCancel className="hidden" id="cancel">إلغاء</AlertDialogCancel>
+                                                                        <AlertDialogAction className="text-white bg-D10000 w-full h-12 rounded-3xl text-center" disabled={row.time_remaining_minutes <= 60} onClick={() => deleteMatch({ id: row.id, setLoading })}>حذف</AlertDialogAction>
+                                                                    </AlertDialogFooter>
+                                                                </AlertDialogContent>
+                                                            </AlertDialog>
+                                                        </>
+                                                    }
                                                 </div>
                                             </td>
                                         </tr>
@@ -100,7 +128,7 @@ const MatchesDisplayTable = ({ data, isLoading, page, setPage }) => {
             {
                 isLoading ? null : data?.pagination?.total_pages > 1 && <Pagination total={data?.pagination?.total_pages} current={page} onChange={(p) => setPage(p)} />
             }
-        </div>
+        </div >
     );
 };
 

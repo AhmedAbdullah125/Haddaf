@@ -13,11 +13,11 @@ import { motion } from "framer-motion";
 import { userLogin } from "@/components/requests/userLogin";
 import { toast } from "sonner";
 const FormSchema = z.object({
-  username: z.string().min(3, "الحد الأدنى 3 أحرف").nonempty("هذا الحقل مطلوب"),
-  password: z.string().min(6, "الحد الأدنى 6 أحرف").nonempty("هذا الحقل مطلوب"),
+  username: z.string().min(2, "الحد الأدنى حرفين").nonempty("هذا الحقل مطلوب"),
+  password: z.string().min(6, "الحد الأدنى 6 أحرف وارقام").nonempty("هذا الحقل مطلوب"),
 });
 
-const Login = ({ setStep, setFormData }) => {
+const Login = () => {
   const token = localStorage.getItem("token");
   useEffect(() => {
     if (token) {

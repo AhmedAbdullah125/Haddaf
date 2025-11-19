@@ -11,6 +11,8 @@ import { deleteNotification } from "../requests/deleteNotification";
 
 const NotificationsGrid = () => {
   const { data, isLoading } = useGetNotifications();
+  console.log(data);
+  
   const [loading, setLoading] = useState(false)
   const handleDelete = (id) => {
     console.log("delete one notification");
@@ -46,8 +48,8 @@ const NotificationsGrid = () => {
 
                       <AlertDialog>
                         <AlertDialogTrigger asChild>
-                          <div className="flex items-center gap-3">
-                            <span className="w-10 h-10 rounded-full bg2EAD001A text-green-600 flex items-center justify-center">
+                          <div className="flex items-center gap-3 cursor-pointer">
+                            <span className="w-10 h-10 rounded-full bg2EAD001A text-green-600 flex items-center justify-center ">
                               <img src={notifIcon} alt="notification" className="w-5 h-5" />
                             </span>
                             <div className="text-right">
@@ -57,7 +59,7 @@ const NotificationsGrid = () => {
                           </div>
                         </AlertDialogTrigger>
                         <AlertDialogContent className="max-w-md w-full px-8 py-11 flex flex-col gap-12 items-center">
-                          <div className="absolute top-2 end-5 w-10 h-10 rounded-full p-1 hover:bg-red-700 hover:text-white flexCenter"
+                          <div className="absolute top-2 end-5 w-10 h-10 rounded-full p-1 hover:bg-red-700 hover:text-white flexCenter cursor-pointer" 
                             onClick={() => {
                               document.getElementById("cancel").click();
                             }}
@@ -66,7 +68,7 @@ const NotificationsGrid = () => {
                             <AlertDialogTitle className="text-2xl font-semibold text-center">{n?.data?.title_ar}</AlertDialogTitle>
                           </AlertDialogHeader>
                           <AlertDialogDescription className="font-medium text-xl text-center text-777">
-                            <p>{n?.data?.body_ar}</p>
+                            <p>{n?.body}</p>
                           </AlertDialogDescription>
                           <AlertDialogFooter className="w-full flex gap-4">
                             <AlertDialogCancel className="hidden" id="cancel">إلغاء</AlertDialogCancel>

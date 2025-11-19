@@ -17,7 +17,7 @@ const QUICK_CITIES: { name: string; center: LatLng }[] = [
 ];
 export function MapPicker({ defaultCenter, onConfirm }: MapPickerProps) {
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string,
+    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string,// here is where should key be
     libraries: ["places"],
     language: "ar",
     region: "SA",

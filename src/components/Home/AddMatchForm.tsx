@@ -87,7 +87,7 @@ const AddMatchForm = () => {
         loading ? <Loading /> :
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-[640px]">
-              <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-[0_4px_10px_0_rgba(46,173,0,0.12)] max-w-[640px]">
+              <div className=" max-w-[640px]">
                 {/* Top row: القطة للمباراة | عدد اللاعبين | مدة المباراة */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <FormField
@@ -95,12 +95,12 @@ const AddMatchForm = () => {
                     name="slotCost"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="block text-center font-semibold text-gray-700 mb-2">القطة للمباراة</FormLabel>
+                        <FormLabel className="block font-semibold text-gray-700 mb-2">القطة للمباراة</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
                             placeholder="القطة للفرد الواحد"
-                            className="h-12 rounded-full px-6 text-right placeholder:text-gray-400 focus-visible:ring-0 focus-visible:ring-offset-0 border-gray-300"
+                            className="h-10 rounded-full px-6 text-right placeholder:text-gray-400 focus-visible:ring-0 focus-visible:ring-offset-0 border-gray-300"
                           />
                         </FormControl>
                         <FormMessage className="text-red-600 text-sm mt-1 text-center" />
@@ -113,12 +113,12 @@ const AddMatchForm = () => {
                     name="players"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="block text-center font-semibold text-gray-700 mb-2">عدد اللاعبين</FormLabel>
+                        <FormLabel className="block font-semibold text-gray-700 mb-2">عدد اللاعبين</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
                             placeholder="قم بتحديد عدد اللاعبين المتاح للمباراة"
-                            className="h-12 rounded-full px-6 text-right placeholder:text-gray-400 focus-visible:ring-0 focus-visible:ring-offset-0 border-gray-300"
+                            className="h-10 rounded-full px-6 text-right placeholder:text-gray-400 focus-visible:ring-0 focus-visible:ring-offset-0 border-gray-300"
                           />
                         </FormControl>
                         <FormMessage className="text-red-600 text-sm mt-1 text-center" />
@@ -131,12 +131,12 @@ const AddMatchForm = () => {
                     name="duration"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="block text-center font-semibold text-gray-700 mb-2">مدة المباراة</FormLabel>
+                        <FormLabel className="block font-semibold text-gray-700 mb-2">مدة المباراة</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
                             placeholder="قم بتحديد المدة"
-                            className="h-12 rounded-full px-6 text-right placeholder:text-gray-400 focus-visible:ring-0 focus-visible:ring-offset-0 border-gray-300"
+                            className="h-10 rounded-full px-6 text-right placeholder:text-gray-400 focus-visible:ring-0 focus-visible:ring-offset-0 border-gray-300"
                           />
                         </FormControl>
                         <FormMessage className="text-red-600 text-sm mt-1 text-center" />
@@ -147,7 +147,7 @@ const AddMatchForm = () => {
 
                 {/* Time and Date */}
                 <div className="mt-8">
-                  <div className="text-center font-semibold mb-4">قم بتحديد وقت و تاريخ المباراة</div>
+                  <div className="font-semibold mb-4">قم بتحديد وقت و تاريخ المباراة</div>
                   <div className="flex items-center justify-center gap-2 mb-6">
                     <FormField
                       control={form.control}
@@ -155,10 +155,8 @@ const AddMatchForm = () => {
                       render={({ field }) => (
                         <FormItem>
                           <FormControl>
-                            <select
-                              {...field}
-                              className="h-12  rounded-full border border-gray-300 bg-white px-4 text-right focus:outline-none"
-                            >
+                            <select {...field}
+                              className="h-10  rounded-[8px] border border-gray-300 bg-white px-4 text-right focus:outline-none">
                               {ampmOptions.map((ap) => (
                                 <option key={ap} value={ap}>{ap}</option>
                               ))}
@@ -168,47 +166,51 @@ const AddMatchForm = () => {
                         </FormItem>
                       )}
                     />
-                    <FormField
-                      control={form.control}
-                      name="minute"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormControl>
-                            <select
-                              {...field}
-                              className="h-12  rounded-full border border-gray-300 bg-white px-4 text-right focus:outline-none"
-                            >
-                              <option value="" disabled>دقيقة</option>
-                              {minutes.map((m) => (
-                                <option key={m} value={m}>{m}</option>
-                              ))}
-                            </select>
-                          </FormControl>
-                          <FormMessage className="text-red-600 text-xs mt-1 text-center" />
-                        </FormItem>
-                      )}
-                    />
+                    <div className="w-full">
+                      <FormField
+                        control={form.control}
+                        name="minute"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormControl>
+                              <select
+                                {...field}
+                                className="h-10  rounded-[8px] w-full border border-gray-300 bg-white px-4 text-right focus:outline-none"
+                              >
+                                <option value="" disabled>دقيقة</option>
+                                {minutes.map((m) => (
+                                  <option key={m} value={m}>{m}</option>
+                                ))}
+                              </select>
+                            </FormControl>
+                            <FormMessage className="text-red-600 text-xs mt-1 text-center" />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
                     <span className="text-gray-400">-</span>
-                    <FormField
-                      control={form.control}
-                      name="hour"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormControl>
-                            <select
-                              {...field}
-                              className="h-12  rounded-full border border-gray-300 bg-white px-4 text-right focus:outline-none"
-                            >
-                              <option value="" disabled>ساعة</option>
-                              {hours.map((h) => (
-                                <option key={h} value={h}>{h}</option>
-                              ))}
-                            </select>
-                          </FormControl>
-                          <FormMessage className="text-red-600 text-xs mt-1 text-center" />
-                        </FormItem>
-                      )}
-                    />
+                    <div className="w-full">
+                      <FormField
+                        control={form.control}
+                        name="hour"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormControl>
+                              <select
+                                {...field}
+                                className="h-10  rounded-[8px] w-full border border-gray-300 bg-white px-4 text-right focus:outline-none"
+                              >
+                                <option value="" disabled>ساعة</option>
+                                {hours.map((h) => (
+                                  <option key={h} value={h}>{h}</option>
+                                ))}
+                              </select>
+                            </FormControl>
+                            <FormMessage className="text-red-600 text-xs mt-1 text-center" />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
                   </div>
 
                   <FormField
@@ -238,7 +240,7 @@ const AddMatchForm = () => {
                 </div>
 
                 <div className="mt-8">
-                  <Button type="submit" className="w-full h-12 rounded-full bg-primary text-white text-lg font-bold hover:opacity-95">
+                  <Button type="submit" className="w-full h-10 rounded-full bg-primary text-white text-lg font-bold hover:opacity-95">
                     حفظ
                   </Button>
                 </div>

@@ -8,6 +8,7 @@ import manWithBall from "../assets/manWithBall.svg";
 import HomeTable from "../components/Home/HomeTable";
 import { useGetHomeData } from "../components/hooks/useGetHomeData";
 import MatchesDisplay from "../components/Home/MatchesDisplay";
+import Loading from "../components/Loading";
 
 
 const Reports = () => {
