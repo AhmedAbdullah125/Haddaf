@@ -2,8 +2,7 @@ import SideBar from "../components/Home/SideBar";
 import PageTitl from "../components/Global/PageTitle";
 import greenGound from "../assets/greenGound.svg";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import { Link, useParams } from "react-router-dom";
-import { GoPlus } from "react-icons/go";
+import {  useParams } from "react-router-dom";
 import MatchesDisplayTable from "../components/Home/MatchesDisplayTable";
 import { motion } from "framer-motion";
 import { useGetMatchesData } from "../components/hooks/useGetMatchesData";
@@ -13,12 +12,10 @@ import { useGetStadiumData } from "../components/hooks/useGetStadiumData";
 
 const GroundMatchesDetails = () => {
     const { id } = useParams();
-    console.log(id);
-    
     const [page, setPage] = useState(1);
     const { data, isLoading } = useGetMatchesData(id, page);
-    const { data: stadium, isLoading: stadiumLoading } = useGetStadiumData({id})
-    console.log(stadium);
+    const { data: stadium, isLoading: stadiumLoading } = useGetStadiumData({ id })
+   
     
     return (
         <div className="flex min-h-screen p-6 gap-8 max-w-[100vw]">
@@ -38,7 +35,7 @@ const GroundMatchesDetails = () => {
                         </div>
                     </div>
                     {
-                        isLoading ? <Loading /> : data?.games.length > 0 ? <MatchesDisplayTable data={data} isLoading={isLoading} page={page} setPage={setPage}/> :
+                        isLoading ? <Loading /> : data?.games.length > 0 ? <MatchesDisplayTable data={data} isLoading={isLoading} page={page} setPage={setPage} /> :
                             <div className="flex flex-col items-center">
                                 <Loading />
                                 <h3 className="text-xl md:text-2xl font-semibold">لا يوجد مباريات</h3>

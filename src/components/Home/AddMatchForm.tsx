@@ -13,7 +13,7 @@ import Loading from '../../components/Loading'
 
 const hours = Array.from({ length: 12 }, (_, i) => String(i + 1));
 
-const minutes = ["00", "15", "30", "45"];
+const minutes = ["00", "30"];
 const ampmOptions = ["AM", "PM"];
 
 const FormSchema = z.object({

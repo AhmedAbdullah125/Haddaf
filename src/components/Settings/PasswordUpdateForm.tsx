@@ -11,9 +11,9 @@ import { changPassword } from "@/components/requests/changPassword";
 import { useNavigate } from "react-router-dom";
 
 const FormSchema = z.object({
-    password: z.string().min(3, "الحد الأدنى 3 أحرف").nonempty("هذا الحقل مطلوب"),
-    new_password: z.string().min(3, "الحد الأدنى 3 أحرف").nonempty("هذا الحقل مطلوب"),
-    re_password: z.string().min(3, "الحد الأدنى 3 أحرف").nonempty("هذا الحقل مطلوب"),
+    password: z.string().min(6, "الحد الأدنى 6 أحرف وارقام").nonempty("هذا الحقل مطلوب"),
+    new_password: z.string().min(6, "الحد الأدنى 6 أحرف وارقام").nonempty("هذا الحقل مطلوب"),
+    re_password: z.string().min(6, "الحد الأدنى 6 أحرف وارقام").nonempty("هذا الحقل مطلوب"),
 });
 const PasswordUpdateForm = ({ title, icon }) => {
     const[loading,setLoading]=useState(false)

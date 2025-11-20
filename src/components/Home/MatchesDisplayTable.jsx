@@ -11,20 +11,8 @@ const MatchesDisplayTable = ({ data, isLoading, page, setPage }) => {
     const [loading, setLoading] = useState(false);
     const location = useLocation();
     const currentPath = location.pathname;
-
     console.log(currentPath.split("/")[1] == "playground" && currentPath.split("/")[2] == "matches");
     const headers = [
-        { name: "رقم", key: "id", id: 1 },
-        { name: "الملعب", key: "stadium", id: 2 },
-        { name: "عدد اللاعبين", key: "players", id: 3 },
-        { name: "مدة المباراة", key: "duration", id: 4 },
-        { name: "موعد المباراة", key: "date", id: 5 },
-        { name: "الساعة", key: "time", id: 6 },
-        { name: "الوقت المتبقي للمباراة", key: "remaining", id: 7 },
-        { name: "القطة للمباراة", key: "slotCost", id: 8 },
-        { name: "الاجراءات", key: "actions", id: 9 },
-    ]
-    const headers2 = [
         { name: "رقم", key: "id", id: 1 },
         { name: "عدد اللاعبين", key: "players", id: 3 },
         { name: "مدة المباراة", key: "duration", id: 4 },
@@ -43,8 +31,6 @@ const MatchesDisplayTable = ({ data, isLoading, page, setPage }) => {
     const IconEye = ({ className = "w-5 h-5" }) => (
         <svg viewBox="0 0 24 24" fill="currentColor" className={className}><path d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z" /></svg>
     );
-    console.log(page);
-
     return (
         <div className="home-table mt-8" >
             {/* Container */}
@@ -58,13 +44,9 @@ const MatchesDisplayTable = ({ data, isLoading, page, setPage }) => {
                                 <thead className="w-full">
                                     <tr className="text-gray-600">
                                         {
-                                            currentPath.split("/")[1] == "playground" && currentPath.split("/")[2] == "matches_details" ?
-                                                headers2.map((header) => (
-                                                    <th key={header.id} className="px-6 py-4 font-semibold whitespace-nowrap text-lg">{header.name}</th>
-                                                )) :
-                                                headers.map((header) => (
-                                                    <th key={header.id} className="px-6 py-4 font-semibold whitespace-nowrap text-lg">{header.name}</th>
-                                                ))
+                                            headers.map((header) => (
+                                                <th key={header.id} className="px-6 py-4 font-semibold whitespace-nowrap text-lg">{header.name}</th>
+                                            ))
                                         }
                                     </tr>
                                 </thead>
@@ -72,10 +54,6 @@ const MatchesDisplayTable = ({ data, isLoading, page, setPage }) => {
                                     {data.games.map((row) => (
                                         <tr key={row.id} className="border-t border-gray-100">
                                             <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.id}</td>
-                                            {
-                                                currentPath.split("/")[1] == "playground" && currentPath.split("/")[2] == "matches_details" ? null :
-                                                    < td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.stadium_name}</td>
-                                            }
                                             <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.players_count}</td>
                                             <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.duration}</td>
                                             <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.start_date}</td>
@@ -84,11 +62,9 @@ const MatchesDisplayTable = ({ data, isLoading, page, setPage }) => {
                                             <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.price}</td>
                                             <td className="px-6 py-4">
                                                 <div className="flex items-center gap-4">
-
                                                     <Link className=" hover:text-green-700" to={`/match/view/${row.id}`} aria-label="view"><IconEye /></Link>
                                                     {
                                                         currentPath.split("/")[1] == "playground" && currentPath.split("/")[2] == "matches_details" ? null : <>
-
                                                             <Link className="text-green-600 hover:text-green-700" to={`/match/edit/${row.id}`} aria-label="edit"><IconEdit /></Link>
                                                             <AlertDialog>
                                                                 <AlertDialogTrigger asChild>

@@ -14,12 +14,12 @@ import { useGetStadiumData } from "../components/hooks/useGetStadiumData";
 const GroundMatches = () => {
     const { id } = useParams();
     console.log(id);
-    
+   
     const [page, setPage] = useState(1);
     const { data, isLoading } = useGetMatchesData(id, page);
-    const { data: stadium, isLoading: stadiumLoading } = useGetStadiumData({id})
+    const { data: stadium, isLoading: stadiumLoading } = useGetStadiumData({ id })
     console.log(stadium);
-    
+
     return (
         <div className="flex min-h-screen p-6 gap-8 max-w-[100vw]">
             <SideBar />
@@ -42,7 +42,7 @@ const GroundMatches = () => {
                         </Link>
                     </div>
                     {
-                        isLoading ? <Loading /> : data?.games.length > 0 ? <MatchesDisplayTable data={data} isLoading={isLoading} page={page} setPage={setPage}/> :
+                        isLoading ? <Loading /> : data?.games.length > 0 ? <MatchesDisplayTable data={data} isLoading={isLoading} page={page} setPage={setPage} /> :
                             <div className="flex flex-col items-center">
                                 <Loading />
                                 <h3 className="text-xl md:text-2xl font-semibold">لا يوجد مباريات</h3>

@@ -173,7 +173,7 @@ const MatchesDisplay = ({ title }) => {
                             <td className="px-6 py-3 text-777 text-nowrap text-lg font-medium">{row.map_desc}</td>
                             {/* <td className={`px-6 py-4 text-nowrap text-lg font-medium ${row.status === "active" ? "text-green-600" : "text-red-600"}`}>{row.status == "active" ? "نشط" : "غير نشط"}</td> */}
                             <td className="px-6 py-4">
-                              <div className={`flex ${currentPath === "/reports" ? "items-center justify-center" : "items-end justify-end"} gap-4`}>
+                              <div className={`flex "items-center justify-center" gap-4`}>
                                 <Link to={`/playground/${currentPath === "/reports" ? "matches_details" : "matches"}/${row.id}`} className="text-gray-600 hover:text-gray-700" aria-label="view"><IconEye /></Link>
                                 {
                                   currentPath === "/reports" ? null :
