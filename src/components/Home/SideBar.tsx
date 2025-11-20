@@ -115,8 +115,8 @@ const SideBar = () => {
               </button>
             </AlertDialogTrigger>
             <AlertDialogContent className="max-w-md w-full px-8 py-11 flex flex-col gap-12 items-center">
-              <div className="absolute top-2 end-5 w-10 h-10 rounded-full p-1 hover:bg-red-700 hover:text-white flexCenter"
-                onClick={() => { document.getElementById("cancel").click(); }}><ImCancelCircle size={28} /></div>
+              <div className="absolute top-2 end-5 w-10 h-10 rounded-full p-1 hover:text-white flexCenter"
+                onClick={() => { document.getElementById("cancel").click(); }}><ImCancelCircle color="#2EAD00" size={28} /></div>
               <AlertDialogHeader>
                 <AlertDialogTitle className="text-2xl font-semibold text-center">حذف الملعب </AlertDialogTitle>
               </AlertDialogHeader>
@@ -124,10 +124,10 @@ const SideBar = () => {
                 ستقوم بالخروج من الحساب
               </AlertDialogDescription>
               <AlertDialogFooter className="w-full flex gap-4">
-                <AlertDialogCancel className="hidden" id="cancel">إلغاء</AlertDialogCancel>
-                <AlertDialogAction className="text-white bg-D10000 w-full h-12 rounded-3xl text-center"
+                <AlertDialogAction className="text-white bg-D10000 hover:bg-black hover:text-white w-full h-12 rounded-3xl text-center"
                   onClick={() => { handleLogout() }}
                 >تأكيد الخروج </AlertDialogAction>
+                <AlertDialogCancel className="text-white cancel-btn hover:bg-black `hover:text-white w-fit h-12 rounded-3xl text-center" id="cancel">تراجع</AlertDialogCancel>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>

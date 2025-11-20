@@ -12,8 +12,8 @@ import Loading from "../Loading";
 
 
 const FormSchema = z.object({
-    mobile: z.string().min(3, "الحد الأدنى 3 أحرف").nonempty("هذا الحقل مطلوب"),
-    password: z.string().min(3, "الحد الأدنى 3 أحرف").nonempty("هذا الحقل مطلوب"),
+    mobile: z.string().min(9, "الحد الأدنى 9 رقم").nonempty("هذا الحقل مطلوب").regex(/^[0-9]{9}$/, "يجب أن يحتوي على 9 رقم"),
+    password: z.string().min(6, "الحد الأدنى 6 أحرف").nonempty("هذا الحقل مطلوب"),
 });
 const PhoneUpdateForm = ({ title, icon, formData, setFormData, setStep }) => {
 

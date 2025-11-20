@@ -188,28 +188,33 @@ All colors MUST be HSL.
     flex-direction: column;
   }
 }
-.gap-small{
+
+.gap-small {
   gap: 40px;
 }
+
 @media (max-width: 767px) {
-  .gap-small{
+  .gap-small {
     gap: 20px;
   }
 }
-.variable-p-small{
+
+.variable-p-small {
   padding: 24px;
 }
+
 @media (max-width: 767px) {
-  .variable-p-small{
+  .variable-p-small {
     padding: 8px;
   }
 }
 
-.md-gap-6-gap-2{
+.md-gap-6-gap-2 {
   gap: 25px;
 }
+
 @media (max-width: 767px) {
-  .md-gap-6-gap-2{
+  .md-gap-6-gap-2 {
     gap: 12px;
   }
 }
@@ -360,30 +365,39 @@ body {
     width: calc(100%);
   }
 }
-.animatioed-img{
-  animation: marquee 5s infinite ease-in-out ;
+
+.animatioed-img {
+  animation: marquee 5s infinite ease-in-out;
 }
-.px-10{
+
+.px-10 {
   padding-inline: 40px;
 }
-.bg-0691290D{
+
+.bg-0691290D {
   background-color: #0691290D;
 }
-.w-fit{
+
+.w-fit {
   width: fit-content;
 }
-.object-cover{
+
+.object-cover {
   object-fit: cover;
 }
-.max-w-96{
+
+.max-w-96 {
   max-width: 384px;
 }
+
 .home-tab:hover {
-background-color: #E4FFEB;
+  background-color: #E4FFEB;
 }
-.home-tab{
+
+.home-tab {
   transition: all 0.3s ease-in-out;
 }
+
 @keyframes marquee {
   0% {
     transform: translateY(0);
@@ -402,14 +416,14 @@ background-color: #E4FFEB;
 
 
 
-.loading-cont{
+.loading-cont {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* From Uiverse.io by zanina-yassine */ 
+/* From Uiverse.io by zanina-yassine */
 .container-loading {
   width: 250px;
   height: 250px;
@@ -418,9 +432,11 @@ background-color: #E4FFEB;
   align-items: center;
   justify-content: center;
 }
-.justify-end{
+
+.justify-end {
   justify-content: end;
 }
+
 .cloud {
   width: 250px;
 }
@@ -461,22 +477,27 @@ background-color: #E4FFEB;
   display: inline-block;
   z-index: 5;
 }
-.rdp-head_cell{
+
+.rdp-head_cell {
   text-align: start;
   padding-inline-start: 12px;
 }
-.rdp-caption{
-  padding-inline-end:50px;
+
+.rdp-caption {
+  padding-inline-end: 50px;
 }
+
 @media screen and (max-width: 767px) {
-  .rdp-caption{
-    padding-inline-end:0px;
+  .rdp-caption {
+    padding-inline-end: 0px;
   }
 }
-.text-4xl{
+
+.text-4xl {
   font-size: 32px;
   line-height: 36px;
 }
+
 .right-back {
   width: 50px;
   height: 50px;
@@ -534,4 +555,16 @@ background-color: #E4FFEB;
   100% {
     transform: translateX(15px);
   }
+}
+
+
+.cancel-btn {
+  background-color: #C7C7C7;
+  color: #fff;
+  /* hover:bg-black hover:text-white */
+}
+
+.cancel-btn:hover {
+  background-color: black;
+  color: #fff;
 }

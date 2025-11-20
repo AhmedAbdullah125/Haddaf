@@ -136,12 +136,12 @@ const AddPlayGroundForm = () => {
                           </AlertDialogTrigger>
                           <AlertDialogContent className="max-w-[512px] w-full px-8 py-11 flex flex-col gap-12 items-center">
                             <AlertDialogTitle>اختر الموقع على الخريطة</AlertDialogTitle>
-                            <div className="absolute top-2 end-5 w-10 h-10 rounded-full p-1 hover:bg-red-700 hover:text-white flexCenter"
+                            <div className="absolute top-2 end-5 w-10 h-10 rounded-full p-1 hover:text-white flexCenter"
                               onClick={() => {
                                 document.getElementById("cancel").click();
                               }}
                             >
-                              <ImCancelCircle size={28} /></div>
+                              <ImCancelCircle color="#2EAD00" size={28} /></div>
 
                             <MapPicker
                               defaultCenter={{ lat: 24.7136, lng: 46.6753 }}

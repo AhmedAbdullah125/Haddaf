@@ -158,7 +158,7 @@ const PasswordUpdateForm = ({ title, icon }) => {
 
                             <div className="mt-6">
                                 <Button type="submit" className="w-full h-12 rounded-full bg-primary text-white text-lg font-bold hover:opacity-95">
-                                    ادخال
+                                    تغيير كلمة المرور
                                 </Button>
                             </div>
                         </div>

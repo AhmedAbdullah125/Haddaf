@@ -15,7 +15,6 @@ import { useGetContactNumbers } from "../hooks/useGetContactNumbers";
 const FormSchema = z.object({
   message: z.string().min(3, "الحد الأدنى 3 أحرف").nonempty("هذا الحقل مطلوب"),
 });
-
 const ContactForm = () => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -29,7 +28,6 @@ const ContactForm = () => {
   const onSubmit = (values: z.infer<typeof FormSchema>) => {
     contactUs(values, setLoading, form);
   };
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -43,7 +41,6 @@ const ContactForm = () => {
         <div className="flex flex-col h-full justify-center gap-2">
           <h3 className="text-lg md:text-xl font-bold text-gray-900">رقم تواصل مع الادارة</h3>
           <div className="flex items-center gap-3">
-
             {
               isLoading ? null :
                 contactNumbers?.map((number, index) => (

@@ -2,14 +2,10 @@
 import { motion } from "framer-motion";
 import { useGetFixedPagesData } from "../../components/hooks/useGetFixedPages";
 import Loading from '../Loading'
+import parse from 'html-react-parser'
 
 const FixedPagesCont = ({ title, keyWord, icon }) => {
-    console.log(keyWord);
-
     const { data, isLoading } = useGetFixedPagesData(keyWord);
-
-    console.log(data);
-
     return (
         <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -23,7 +19,7 @@ const FixedPagesCont = ({ title, keyWord, icon }) => {
                             <img src={icon} alt="haddaf" className="w-8 h-8" />
                             <h3 className="text-lg md:text-xl font-extrabold text-gray-900">{title}</h3>
                         </div>
-                        <p className="text-black text-lg font-medium">{data}</p>
+                        <div className="text-black text-lg font-medium">{parse(data)}</div>
 
                     </>
             }

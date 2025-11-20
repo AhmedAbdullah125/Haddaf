@@ -59,11 +59,11 @@ const NotificationsGrid = () => {
                           </div>
                         </AlertDialogTrigger>
                         <AlertDialogContent className="max-w-md w-full px-8 py-11 flex flex-col gap-12 items-center">
-                          <div className="absolute top-2 end-5 w-10 h-10 rounded-full p-1 hover:bg-red-700 hover:text-white flexCenter cursor-pointer" 
+                          <div className="absolute top-2 end-5 w-10 h-10 rounded-full p-1 hover:text-white flexCenter cursor-pointer" 
                             onClick={() => {
                               document.getElementById("cancel").click();
                             }}
-                          ><ImCancelCircle size={28} /></div>
+                          ><ImCancelCircle color="#2EAD00" size={28} /></div>
                           <AlertDialogHeader>
                             <AlertDialogTitle className="text-2xl font-semibold text-center">{n?.data?.title_ar}</AlertDialogTitle>
                           </AlertDialogHeader>
